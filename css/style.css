@@ -1,0 +1,43 @@
+.container {
+  background-color: beige;
+  padding: 10px;
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.wrapper {
+  width: 90%;
+  display: inline-block;
+}
+
+.main_container {
+  width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+.content {
+  margin-left: 10px;
+}
+.note {
+  margin-left: 5px;
+  margin-top: 10px;
+}
+
+li {
+  line-height: 1.2em;
+}
+
+@media screen and (max-width: 800px) {
+  .main_container {
+    width: 90%;
+  }
+}
