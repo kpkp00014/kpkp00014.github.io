@@ -65,6 +65,29 @@ function getSettings() {
   settings.test.recover_try = Number(
     document.querySelector("input[name=goal_recover_try]").value
   );
+
+  settings.logs.each = document.querySelector("input[name=log_each]:checked")
+    ? true
+    : false;
+  settings.logs.each_result = document.querySelector(
+    "input[name=log_each_result]:checked"
+  )
+    ? true
+    : false;
+  settings.logs.times = document.querySelector("input[name=log_times]:checked")
+    ? true
+    : false;
+  settings.logs.rate = document.querySelector("input[name=log_rate]:checked")
+    ? true
+    : false;
+  settings.logs.plot = document.querySelector("input[name=log_plot]:checked")
+    ? true
+    : false;
+  settings.logs.destroy = document.querySelector(
+    "input[name=log_destroy]:checked"
+  )
+    ? true
+    : false;
 }
 
 function showSummary() {
