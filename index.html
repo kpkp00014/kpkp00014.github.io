@@ -151,6 +151,7 @@
                   step="0.01"
                   name="goal_budget"
                   value="10"
+                  min="0"
                 />억 메소
               </li>
               <li>복구 비용</li>
@@ -171,6 +172,14 @@
                   value="-1"
                 />개
               </li>
+              <li>스타캐치시 강화 소요 시간</li>
+              <li>
+                <input type="number" name="goal_sf_try" min="1" value="10" />초
+              </li>
+              <li>스타캐치 안할 시 강화 소요 시간</li>
+              <li>
+                <input type="number" name="goal_nsf_try" min="1" value="5" />초
+              </li>
             </ul>
           </div>
           <div class="note">
@@ -178,6 +187,7 @@
               스페어 갯수는 경매장에 물량이 제한되어 있는 경우를 위한 옵션입니다
             </p>
             <p>스페어가 무제한인 경우 -1을 넣어 주세요</p>
+            <p>예산이 무제한인 경우 0을 넣어 주세요</p>
           </div>
         </div>
         <!--로그 설정-->
@@ -208,6 +218,13 @@
               <li>
                 <input type="checkbox" name="log_destroy" checked />아이템 파괴
                 통계 출력
+              </li>
+              <li>
+                <input type="checkbox" name="log_number" />간략한 숫자 정보
+              </li>
+              <li>
+                <input type="checkbox" name="log_running_time" />강화 소요 시간
+                표시
               </li>
             </ul>
           </div>

@@ -65,6 +65,12 @@ function getSettings() {
   settings.test.recover_try = Number(
     document.querySelector("input[name=goal_recover_try]").value
   );
+  settings.test.sf_time = Number(
+    document.querySelector("input[name=goal_sf_try]").value
+  );
+  settings.test.nsf_time = Number(
+    document.querySelector("input[name=goal_nsf_try]").value
+  );
 
   settings.logs.each = document.querySelector("input[name=log_each]:checked")
     ? true
@@ -85,6 +91,16 @@ function getSettings() {
     : false;
   settings.logs.destroy = document.querySelector(
     "input[name=log_destroy]:checked"
+  )
+    ? true
+    : false;
+  settings.logs.number = document.querySelector(
+    "input[name=log_number]:checked"
+  )
+    ? true
+    : false;
+  settings.logs.running_time = document.querySelector(
+    "input[name=log_running_time]:checked"
   )
     ? true
     : false;
@@ -153,7 +169,12 @@ function showSummary() {
   summary.appendChild(equip);
 
   let tSet = document.createElement("li");
-  tSet.innerText = `테스트 설정 : ${settings.test.trys}회, ${settings.test.goal}성, 예산 ${settings.test.budget}억`;
+  tSet.innerText = `테스트 설정 : ${settings.test.trys}회, ${settings.test.goal}성, `;
+  if (settings.test.budget === 0) {
+    tSet.innerText += "예산 무제한";
+  } else {
+    tSet.innerText += `예산 ${settings.test.budget}억`;
+  }
   summary.appendChild(tSet);
 
   let recov = document.createElement("li");
