@@ -14,11 +14,6 @@
   display: none;
 }
 
-@media screen and (max-width: 1000px) {
-  #main_container .inner {
-    width: 90%;
-  }
-}
 .relative {
   display: relative;
 }
@@ -203,4 +198,16 @@ th {
 }
 #summary .content {
   margin: 5px 15px;
+}
+@media screen and (max-width: 1000px) {
+  #main_container .inner {
+    width: 90%;
+    background-color: yellow;
+  }
+}
+@media screen and (max-width: 600px) {
+  #main_container .inner {
+    width: 90%;
+    background-color: red;
+  }
 }
