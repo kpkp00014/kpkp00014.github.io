@@ -24,10 +24,16 @@
   font-size: 2em;
   font-weight: bold;
   margin-bottom: 20px;
+  background: url("../img/title.png") no-repeat;
+  background-position: center;
+  background-size: 535px auto;
+  width: 100%;
+  height: 100px;
 }
 .slide_wrapper {
   width: 100%;
   display: flex;
+  position: relative;
   justify-content: center;
   margin-bottom: 30px;
 }
@@ -40,7 +46,6 @@
 }
 
 .slide_num {
-  border: 3px solid #39bce7;
   width: 30px;
   height: 30px;
   border-radius: 100%;
@@ -51,10 +56,41 @@
   z-index: 99;
   background-color: white;
 }
-.slide_num.selected {
-  background-color: #39bce7;
-  color: white;
+.slide_num:nth-child(1) {
+  background: url("../img/num_sprite.png") no-repeat -312px -12px;
+  width: 76px;
+  height: 76px;
 }
+
+.slide_num:nth-child(2) {
+  background: url("../img/num_sprite.png") no-repeat -412px -12px;
+  width: 76px;
+  height: 76px;
+}
+
+.slide_num:nth-child(3) {
+  background: url("../img/num_sprite.png") no-repeat -512px -12px;
+  width: 76px;
+  height: 76px;
+}
+.slide_num:nth-child(1).selected {
+  background: url("../img/num_sprite.png") no-repeat -12px -12px;
+  width: 76px;
+  height: 76px;
+}
+
+.slide_num:nth-child(2).selected {
+  background: url("../img/num_sprite.png") no-repeat -112px -12px;
+  width: 76px;
+  height: 76px;
+}
+
+.slide_num:nth-child(3).selected {
+  background: url("../img/num_sprite.png") no-repeat -212px -12px;
+  width: 76px;
+  height: 76px;
+}
+
 .slide {
   display: none;
   transition: all 2s;
@@ -68,13 +104,15 @@
 .line {
   position: absolute;
   flex-grow: 1;
-  border: 3px solid #39bce7;
+  border: 3px solid rgb(155, 25, 25);
   top: 50%;
-  left: 5%;
+  left: 50%;
   height: 0px;
   width: 90%;
-  transform: translate(0, -50%);
+  transform: translate(-50%, -50%);
   z-index: 10;
+  width: 85%;
+  max-width: 480px;
 }
 .tab {
   border: 1px solid black;
@@ -82,11 +120,6 @@
   margin-bottom: 5px;
   padding: 5px 10px;
   line-height: 30px;
-}
-.tab .title {
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
 }
 .tab .content {
   display: none;
@@ -97,27 +130,21 @@
   display: block;
 }
 
-.tab .arrow {
-  width: 30px;
-  height: 30px;
-  background: url(../img/arrow.png) no-repeat;
-  background-size: 30px 30px;
-}
-
-.tab.selected .arrow {
-  transform: rotate(-90deg);
-}
-
 .tab .title {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
   background: url(../img/arrow.png) no-repeat;
+  background-size: 40px 37px;
   background-position: right;
-  background-size: 30px 30px;
+  height: 42px;
+  line-height: 42px;
 }
 
 .tab.selected .title {
   background: url(../img/arrow_down.png) no-repeat;
   background-position: right;
-  background-size: 30px 30px;
+  background-size: 37px 39px;
 }
 
 #result_log .title,
@@ -130,12 +157,12 @@
   justify-content: space-between;
 }
 
-#result_log table {
+table {
   width: 100%;
   min-width: 600px;
 }
 
-#result_log table td,
+table td,
 th {
   border-left: 1px solid white;
   border-right: 1px solid white;
@@ -145,21 +172,21 @@ th {
   vertical-align: middle;
 }
 
-#result_log table tr:nth-child(odd) {
+table tr:nth-child(even) {
   background: #ccc;
 }
 
-#result_log table tr:nth-child(even) {
+table tr:nth-child(odd) {
   background: #fff;
 }
 
-#result_log table tr:nth-child(1) {
+table th {
   background: #aaa;
   height: 27px;
   line-height: 27px;
 }
 
-#result_log table caption {
+table caption {
   height: 30px;
   line-height: 30px;
   font-size: 24px;
@@ -168,6 +195,7 @@ th {
 
 .table_wrapper {
   max-height: 1200px;
+  width: inherit;
   overflow: auto;
 }
 
@@ -207,5 +235,15 @@ th {
 @media screen and (max-width: 1000px) {
   #main_container .inner {
     width: 90%;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  #title {
+    background: url("../img/title.png") no-repeat;
+    background-position: 5px 0;
+    background-size: 321px auto;
+    height: 60px;
+    margin-bottom: 5px;
   }
 }

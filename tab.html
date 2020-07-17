@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/slide.css" />
+    <link rel="stylesheet" href="css/modal.css" />
     <title>스타포스 가능?</title>
     <script src="javascript/jquery.js"></script>
     <script src="javascript/include.js"></script>
@@ -11,13 +12,13 @@
   <body>
     <div id="main_container">
       <div class="inner">
-        <div id="title">스타포스 가능? 불가능?</div>
+        <div id="title"></div>
         <div class="slide_wrapper">
+          <div class="line"></div>
           <div id="slide_control">
-            <div class="line"></div>
-            <div class="slide_num selected">1</div>
-            <div class="slide_num">2</div>
-            <div class="slide_num">3</div>
+            <div class="slide_num selected"></div>
+            <div class="slide_num"></div>
+            <div class="slide_num"></div>
           </div>
         </div>
         <div id="main_slide">
@@ -33,17 +34,40 @@
 
           <div class="slide">
             <div id="summary">
-              <div class="title">설정 요약</div>
+              <div class="title">
+                설정 요약
+                <div class="btn">
+                  <button id="btn_modal">강화 정보</button>
+                </div>
+              </div>
               <div class="content">
-                <ul>
-                  <li>이벤트 : 없음</li>
-                  <li>추가 할인율 : 0%</li>
-                  <li>파괴방지 설정 : 없음</li>
-                  <li>스타캐치 설정 : x 5%, 12성 이상에서 시도</li>
-                  <li>아이템 : 160제, 12성</li>
-                  <li>테스트 설정 : 10회, 17성, 예산 10억</li>
-                  <li>복구 옵션 : 비용 - 회당 0억, 최대복구횟수 - 무제한</li>
-                </ul>
+                <ul></ul>
+              </div>
+              <div id="modal" class="modal">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <p>강화 정보</p>
+                  </div>
+                  <div class="modal-body">
+                    <div class="table_wrapper">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>시작</th>
+                            <th>강화비</th>
+                            <th>강화비변동률</th>
+                            <th>성공확률</th>
+                            <th>실패확률</th>
+                            <th>파괴확률</th>
+                          </tr>
+                        </thead>
+                        <tbody></tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="modal-footer"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -51,8 +75,10 @@
             <div id="result_log">
               <div class="title">
                 테스트 결과
-
-                <button id="btn_clear">로그 지우기</button>
+                <div class="btn">
+                  <button id="btn_submit">테스트 시작</button>
+                  <button id="btn_clear">로그 지우기</button>
+                </div>
               </div>
               <div class="content">
                 <div class="table_wrapper">
@@ -60,34 +86,38 @@
                     <caption>
                       모든 강화 로그
                     </caption>
-                    <tr>
-                      <th>테스트 번호</th>
-                      <th>강회 번호</th>
-                      <th>시작 값</th>
-                      <th>결과 값</th>
-                      <th>강화 결과</th>
-                      <th>누적 비용</th>
-                      <th>누적 파괴</th>
-                      <th class="hidden">소요 시간</th>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>1</td>
-                      <td>12</td>
-                      <td>13</td>
-                      <td>성공</td>
-                      <td>100억</td>
-                      <td>0</td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>1</td>
-                      <td>12</td>
-                      <td>13</td>
-                      <td>성공</td>
-                      <td>100억</td>
-                      <td>0</td>
-                    </tr>
+                    <thead>
+                      <tr>
+                        <th>테스트 번호</th>
+                        <th>강회 번호</th>
+                        <th>시작 값</th>
+                        <th>결과 값</th>
+                        <th>강화 결과</th>
+                        <th>누적 비용</th>
+                        <th>누적 파괴</th>
+                        <th class="timecal hidden">소요 시간</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>12</td>
+                        <td>13</td>
+                        <td>성공</td>
+                        <td>100억</td>
+                        <td>0</td>
+                      </tr>
+                      <tr>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>12</td>
+                        <td>13</td>
+                        <td>성공</td>
+                        <td>100억</td>
+                        <td>0</td>
+                      </tr>
+                    </tbody>
                   </table>
                 </div>
                 <div class="table_wrapper">
@@ -95,31 +125,35 @@
                     <caption>
                       테스트별 강화 결과
                     </caption>
-                    <tr>
-                      <th>테스트 번호</th>
-                      <th>결과</th>
-                      <th>누적 비용</th>
-                      <th>누적 파괴</th>
-                      <th>강화 성공</th>
-                      <th>강화 실패</th>
-                      <th class="hidden">예상 강화 소요 시간</th>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>성공</td>
-                      <td>12억</td>
-                      <td>1회</td>
-                      <td>2회</td>
-                      <td>1회</td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>성공</td>
-                      <td>12억</td>
-                      <td>1회</td>
-                      <td>2회</td>
-                      <td>1회</td>
-                    </tr>
+                    <thead>
+                      <tr>
+                        <th>테스트 번호</th>
+                        <th>결과</th>
+                        <th>누적 비용</th>
+                        <th>누적 파괴</th>
+                        <th>강화 성공</th>
+                        <th>강화 실패</th>
+                        <th class="timecal hidden">예상 강화 소요 시간</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>성공</td>
+                        <td>12억</td>
+                        <td>1회</td>
+                        <td>2회</td>
+                        <td>1회</td>
+                      </tr>
+                      <tr>
+                        <td>1</td>
+                        <td>성공</td>
+                        <td>12억</td>
+                        <td>1회</td>
+                        <td>2회</td>
+                        <td>1회</td>
+                      </tr>
+                    </tbody>
                   </table>
                 </div>
                 <ul id="result_ul">
@@ -139,10 +173,10 @@
         </div>
       </div>
     </div>
-    <script src="javascript/slide.js"></script>
-
     <script src="javascript/const.js"></script>
     <script src="javascript/io.js"></script>
+    <script src="javascript/slide.js"></script>
+    <script src="javascript/modal.js"></script>
     <script src="javascript/starforce.js"></script>
   </body>
 </html>

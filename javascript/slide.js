@@ -19,6 +19,8 @@ slide_num.forEach(function (item, index) {
 });
 
 function setSlide(nth) {
+  getSettings();
+  showSummary();
   let slides = document.querySelectorAll("#main_slide .slide");
   slides.forEach(function (item, index) {
     item.classList.remove("selected");
@@ -28,6 +30,10 @@ function setSlide(nth) {
 
 $(document).on("click", "#main_slide .slide .tab .title", function (e) {
   e.target.parentNode.classList.toggle("selected");
+});
+$(document).on("change", "input", function (e) {
+  getSettings();
+  showSummary();
 });
 
 include();

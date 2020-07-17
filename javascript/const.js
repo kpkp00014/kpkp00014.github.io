@@ -1,20 +1,15 @@
 const settings = {
-  preventDestroy: [],
-  logs: {},
+  prevDes: [],
+  log: {},
   starcatch: {},
   item: {},
   test: {},
-  event: "",
-  event2: "",
-  mvp: "",
-  pcroom: "",
+  event: {},
+  a_sale: {},
 };
-const summary = document.querySelector("#summary");
-const result = document.querySelector("#result");
-const resultArr = [];
-const wrapper1 = document.querySelector(".wrapper");
-const inputs = wrapper1.querySelectorAll("input");
-const btn_submit = document.querySelector("#btn_run");
+
+const summary = document.querySelector("#summary .content ul");
+const btn_submit = document.querySelector("#btn_submit");
 const btn_logClear = document.querySelector("#btn_clear");
 
 const prob = [
@@ -76,15 +71,21 @@ class Starforce {
   starCost() {
     var aDiscount =
       this.star < 17
-        ? 1 - (settings.pcroom ? settings.mvp + 5 : settings.mvp) * 0.01
+        ? 1 -
+          (settings.a_sale.pcroom
+            ? settings.a_sale.mvp + 5
+            : settings.a_sale.mvp) *
+            0.01
         : 1;
-    var event = settings.event === "sale30" ? 0.7 : 1;
-    var pDestroy = settings.preventDestroy.includes(this.star)
-      ? settings.event2
+    var event = settings.event.sunday === "sale30" ? 0.7 : 1;
+    var pDestroy = settings.prevDes.includes(this.star)
+      ? settings.event.free
         ? 0
         : 1
       : 0;
-    var discountRate = aDiscount * event + pDestroy;
+    var discountRate = aDiscount * event;
+    if (!(this.star === 15 && settings.event.sunday === "s15"))
+      discountRate += pDestroy;
     var cost;
 
     if (this.star < 10) {
@@ -104,12 +105,12 @@ class Starforce {
     return Math.floor(cost * 0.1 * discountRate) * 10;
   }
   checkStarcatch() {
-    if (this.star >= settings.starcatch.when) return true;
+    if (this.star >= settings.starcatch.condition) return true;
     else return false;
   }
   // 스타포스 확률 계산
   starPercentage() {
-    if (settings.event === "s15" && [5, 10, 15].includes(this.star)) {
+    if (settings.event.sunday === "s15" && [5, 10, 15].includes(this.star)) {
       return 1;
     }
     if (this.chance == 2) {
@@ -118,9 +119,9 @@ class Starforce {
     var percent = prob[this.star][0];
     if (this.checkStarcatch()) {
       if (settings.starcatch.cal === "mul") {
-        return percent * (1 + 0.01 * settings.starcatch.percent);
+        return percent * (1 + 0.01 * settings.starcatch.rate);
       } else {
-        return percent + 0.01 * settings.starcatch.percent;
+        return percent + 0.01 * settings.starcatch.rate;
       }
     } else return percent;
   }
@@ -151,7 +152,7 @@ class Starforce {
       this.successCount++;
       if (settings.logs.each)
         resultInput(
-          `${i} -  성공  누적비용: ${sliptNum(this.cost)}  현재: ${this.star}성`
+          `${i} -  성공  누적비용: ${splitNum(this.cost)}  현재: ${this.star}성`
         );
     } else {
       // 스타포스 실패 시
@@ -167,7 +168,7 @@ class Starforce {
 
         if (settings.logs.each)
           resultInput(
-            `${i} -  파괴   누적비용: ${sliptNum(this.cost)}  누적파괴: ${
+            `${i} -  파괴   누적비용: ${splitNum(this.cost)}  누적파괴: ${
               this.destroyCount
             }`
           );
@@ -181,7 +182,7 @@ class Starforce {
         }
         if (settings.logs.each)
           resultInput(
-            `${i} -  실패   누적비용: ${sliptNum(this.cost)}  현재: ${
+            `${i} -  실패   누적비용: ${splitNum(this.cost)}  현재: ${
               this.star
             }성`
           );
@@ -192,9 +193,11 @@ class Starforce {
   }
 }
 
-function sliptNum(num) {
+function splitNum(num) {
+  num = Math.round(num * 100) / 100;
+
   //숫자 만단위 표시
-  if (settings.logs.number) {
+  if (settings.log.number) {
     var size = 0; // 숫자의 크기
 
     if (num > Math.pow(10, 16)) {
@@ -220,4 +223,14 @@ function sliptNum(num) {
     }
     return x1 + x2;
   }
+}
+
+function tableUpdate(tbody) {
+  let tr = document.createElement("tr");
+  for (var i = 1; i < arguments.length; i++) {
+    let td = document.createElement("td");
+    td.textContent = arguments[i];
+    tr.appendChild(td);
+  }
+  tbody.appendChild(tr);
 }

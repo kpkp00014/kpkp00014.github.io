@@ -2,8 +2,8 @@ function starforce() {
   resultInput("시뮬레이션을 시작합니다");
   resultArr.length = 0;
   // 테스트 횟수만큼 반복 실행
-  for (var i = 1; i <= settings.test.trys; i++) {
-    var item = new Starforce(settings.item.lv, settings.item.star);
+  for (var i = 1; i <= settings.test.try; i++) {
+    var item = new Starforce(settings.item.level, settings.item.star);
     while (true) {
       // 예산이 무한한 경우
       if (settings.test.budget === 0) {
@@ -61,7 +61,7 @@ function testResult(i, item) {
     let str = `-----  ${i}번 결과 : `;
     str += item.goal ? "성공" : "실패";
     str += ` ${item.failCause} -----`;
-    let str2 = `누적비용: ${sliptNum(item.cost)}, `;
+    let str2 = `누적비용: ${splitNum(item.cost)}, `;
     str2 += `파괴 ${item.destroyCount}회, 성공 ${item.successCount}, 실패 ${item.failCount}`;
 
     resultInput(str);
@@ -133,41 +133,41 @@ function fianlResult() {
 
   // 성공 케이스
   resultInput(` ------ 성공 통계 ------`);
-  resultInput(` 전체 수 : ${sliptNum(results.success.num)} `);
+  resultInput(` 전체 수 : ${splitNum(results.success.num)} `);
   resultInput(
-    ` 평균 성공 횟수 : ${sliptNum(
+    ` 평균 성공 횟수 : ${splitNum(
       results.success.success / results.success.num
     )}회 `
   );
   resultInput(
-    ` 평균 실패 횟수 : ${sliptNum(
+    ` 평균 실패 횟수 : ${splitNum(
       results.success.fail / results.success.num
     )}회`
   );
   resultInput(
-    ` 평균 파괴 횟수 : ${sliptNum(
+    ` 평균 파괴 횟수 : ${splitNum(
       results.success.destroy / results.success.num
     )}회`
   );
   resultInput(
-    ` 평균 누적 비용 : ${sliptNum(
+    ` 평균 누적 비용 : ${splitNum(
       results.success.cost / results.success.num
     )} 메소`
   );
 
   // 실패 케이스
   resultInput(` ------ 실패 통계 ------`);
-  resultInput(` 전체 수 : ${sliptNum(results.fail.num)} `);
+  resultInput(` 전체 수 : ${splitNum(results.fail.num)} `);
   resultInput(
-    ` 평균 성공 횟수 : ${sliptNum(results.fail.success / results.fail.num)}회`
+    ` 평균 성공 횟수 : ${splitNum(results.fail.success / results.fail.num)}회`
   );
   resultInput(
-    ` 평균 실패 횟수 : ${sliptNum(results.fail.fail / results.fail.num)}회`
+    ` 평균 실패 횟수 : ${splitNum(results.fail.fail / results.fail.num)}회`
   );
   resultInput(
-    ` 평균 파괴 횟수 : ${sliptNum(results.fail.destroy / results.fail.num)}회`
+    ` 평균 파괴 횟수 : ${splitNum(results.fail.destroy / results.fail.num)}회`
   );
   resultInput(
-    ` 평균 누적 비용 : ${sliptNum(results.fail.cost / results.fail.num)}메소`
+    ` 평균 누적 비용 : ${splitNum(results.fail.cost / results.fail.num)}메소`
   );
 }

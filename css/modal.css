@@ -1,0 +1,98 @@
+/*modal 창 */
+.modal {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 100;
+}
+.modal-content {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 700px;
+  background-color: #fefefe;
+  margin: 20% auto;
+  padding: 0;
+  border: 1px solid #888;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+}
+
+.modal-content .table_wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.modal-content table {
+  width: 80%;
+}
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+.modal-header {
+  height: 30px;
+  padding: 2px 16px;
+  background-color: #e0dede;
+  color: white;
+}
+.modal-header p {
+  line-height: 34px;
+  color: #4a3f35;
+}
+.modal-body {
+  padding: 2px 16px;
+  height: 500px;
+  position: relative;
+}
+#scrap_content {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  resize: none;
+  border: none;
+  outline: none;
+  word-break: break-all;
+  background: transparent;
+}
+.modal-footer {
+  padding: 2px 16px;
+  background-color: #f5f5f5;
+  color: white;
+  height: 30px;
+}
+.modal-footer button {
+  background: #e0dede;
+  border: none;
+  color: #4a3f35;
+  border-radius: 3px;
+  line-height: 30px;
+}
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}

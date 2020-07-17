@@ -1,3 +1,4 @@
+//submit 방지
 document.addEventListener(
   "keydown",
   function (event) {
@@ -8,190 +9,128 @@ document.addEventListener(
   true
 );
 
+// string이 number인지 확인
+function isFloat(val) {
+  var floatRegex = /^-?\d+(?:[.,]\d*?)?$/;
+  if (!floatRegex.test(val)) return false;
+
+  val = parseFloat(val);
+  if (isNaN(val)) return false;
+  return true;
+}
+
 function getSettings() {
-  settings.event = document.querySelector("input[name=event]:checked").value;
-  settings.event2 = document.querySelector("input[name=freeDes]:checked")
-    ? true
-    : false;
+  settings.prevDes.length = 0;
+  let inputs = document.querySelectorAll("input");
+  inputs.forEach(function (item, index) {
+    if (item.getAttribute("data-ary")) {
+      if (item.checked) settings.prevDes.push(Number(item.value));
+    } else {
+      let iClass = item.getAttribute("data-class");
+      let iname = item.getAttribute("data-name");
 
-  settings.mvp = Number(
-    document.querySelector("input[name=mvp]:checked").value
-  );
-  settings.pcroom = document.querySelector("input[name=pcroom]:checked")
-    ? true
-    : false;
+      if (item.type === "radio") {
+        if (item.checked) {
+          let val = item.value;
+          if (isFloat(val)) val = Number(val);
+          settings[iClass][iname] = val;
+        }
+      } else {
+        let val = item.value;
+        if (isFloat(val)) val = Number(val);
+        if (item.type === "checkbox") val = item.checked;
+        settings[iClass][iname] = val;
+      }
+    }
+  });
+}
 
-  settings.preventDestroy = [];
-  if (document.querySelector("input[name=des12]:checked"))
-    settings.preventDestroy.push(12);
-  if (document.querySelector("input[name=des13]:checked"))
-    settings.preventDestroy.push(13);
-  if (document.querySelector("input[name=des14]:checked"))
-    settings.preventDestroy.push(14);
-  if (document.querySelector("input[name=des15]:checked"))
-    settings.preventDestroy.push(15);
-  if (document.querySelector("input[name=des16]:checked"))
-    settings.preventDestroy.push(16);
-
-  settings.starcatch.cal = document.querySelector(
-    "input[name=starcatch_cal]:checked"
-  ).value;
-  settings.starcatch.percent = Number(
-    document.querySelector("input[name=starcatch_percent]").value
-  );
-  settings.starcatch.when = Number(
-    document.querySelector("input[name=starcatch_star]").value
-  );
-
-  settings.item.lv = Number(
-    document.querySelector("input[name=equiplv]").value
-  );
-  settings.item.star = Number(
-    document.querySelector("input[name=equipstar]").value
-  );
-
-  settings.test.trys = Number(
-    document.querySelector("input[name=goal_try]").value
-  );
-  settings.test.goal = Number(
-    document.querySelector("input[name=goal_star]").value
-  );
-  settings.test.budget = Number(
-    document.querySelector("input[name=goal_budget]").value
-  );
-  settings.test.recover_cost = Number(
-    document.querySelector("input[name=goal_recover_cost]").value
-  );
-  settings.test.recover_try = Number(
-    document.querySelector("input[name=goal_recover_try]").value
-  );
-  settings.test.sf_time = Number(
-    document.querySelector("input[name=goal_sf_try]").value
-  );
-  settings.test.nsf_time = Number(
-    document.querySelector("input[name=goal_nsf_try]").value
-  );
-
-  settings.logs.each = document.querySelector("input[name=log_each]:checked")
-    ? true
-    : false;
-  settings.logs.each_result = document.querySelector(
-    "input[name=log_each_result]:checked"
-  )
-    ? true
-    : false;
-  settings.logs.times = document.querySelector("input[name=log_times]:checked")
-    ? true
-    : false;
-  settings.logs.rate = document.querySelector("input[name=log_rate]:checked")
-    ? true
-    : false;
-  settings.logs.plot = document.querySelector("input[name=log_plot]:checked")
-    ? true
-    : false;
-  settings.logs.destroy = document.querySelector(
-    "input[name=log_destroy]:checked"
-  )
-    ? true
-    : false;
-  settings.logs.number = document.querySelector(
-    "input[name=log_number]:checked"
-  )
-    ? true
-    : false;
-  settings.logs.running_time = document.querySelector(
-    "input[name=log_running_time]:checked"
-  )
-    ? true
-    : false;
+function summaryUpdate(text) {
+  let li = document.createElement("li");
+  li.innerText = text;
+  summary.appendChild(li);
 }
 
 function showSummary() {
   summary.innerHTML = "";
 
   //이벤트
-  let event = document.createElement("li");
-  event.innerText = "이벤트 : ";
-  switch (settings.event) {
+  let event = "이벤트 : ";
+  switch (settings.event.sunday) {
     case "s15":
-      event.innerText += "5, 10, 15성 100% 성공";
+      event += "5, 10, 15성 100% 성공";
       break;
     case "sale30":
-      event.innerText += "30% 할인";
+      event += "30% 할인";
       break;
     case "oneplus":
-      event.innerText += "10성 이하 1+1";
+      event += "10성 이하 1+1";
       break;
     case "none":
-      event.innerText += "없음";
+      event += "없음";
       break;
   }
-  if (settings.event2) {
-    event.innerText += ", 무료 파괴방지";
+  if (settings.event.prevDes) {
+    event += ", 무료 파괴방지";
   }
-  summary.appendChild(event);
+  summaryUpdate(event);
 
-  let addSale = document.createElement("li");
-  addSale.innerText = "추가 할인율 : ";
-  addSale.innerText += settings.pcroom ? settings.mvp + 5 : settings.mvp;
-  addSale.innerText += "%";
-  summary.appendChild(addSale);
+  //할인
+  let addSale = "추가 할인율 : ";
+  addSale += settings.a_sale.pcroom
+    ? settings.a_sale.mvp + 5
+    : settings.a_sale.mvp;
+  addSale += "%";
+  summaryUpdate(addSale);
 
-  let pDes = document.createElement("li");
-  pDes.innerText = "파괴방지 설정 : ";
-  if (!settings.preventDestroy.length) pDes.innerText += "없음";
-  else if (settings.preventDestroy.length == 5) pDes.innerText += "풀파방";
+  //파괴방지
+  let pDes = "파괴방지 설정 : ";
+  if (!settings.prevDes.length) pDes += "없음";
+  else if (settings.prevDes.length == 5) pDes += "풀파방";
   else {
     let str = "";
-    for (var i in settings.preventDestroy) {
-      str += settings.preventDestroy[i];
+    for (var i in settings.prevDes) {
+      str += settings.prevDes[i];
       str += "성 ";
     }
-    pDes.innerText += str;
+    pDes += str;
   }
-  summary.appendChild(pDes);
+  summaryUpdate(pDes);
 
-  let sCatch = document.createElement("li");
-  sCatch.innerText = "스타캐치 설정 : ";
-  if (settings.starcatch.when === 25 || settings.starcatch.percent === 0) {
-    sCatch.innerText += "안함";
+  //스타캐치
+  let sCatch = "스타캐치 설정 : ";
+  if (settings.starcatch.condition === 25 || settings.starcatch.rate === 0) {
+    sCatch += "안함";
   } else {
-    sCatch.innerText += settings.starcatch.cal === "mul" ? "x " : "+ ";
-    sCatch.innerText += settings.starcatch.percent;
-    sCatch.innerText += "%, ";
-    sCatch.innerText += settings.starcatch.when;
-    sCatch.innerText += "성 이상에서 시도";
+    sCatch += settings.starcatch.cal === "mul" ? " x" : " +";
+    sCatch += settings.starcatch.rate;
+    sCatch += "%, ";
+    sCatch += settings.starcatch.condition;
+    sCatch += "성 이상에서 시도";
   }
-  summary.appendChild(sCatch);
+  summaryUpdate(sCatch);
 
-  let equip = document.createElement("li");
-  equip.innerText = `아이템 : ${settings.item.lv}제, ${settings.item.star}성`;
-  summary.appendChild(equip);
+  //아이템
+  let equip = `아이템 : ${settings.item.level}제, ${settings.item.star}성`;
+  summaryUpdate(equip);
 
-  let tSet = document.createElement("li");
-  tSet.innerText = `테스트 설정 : ${settings.test.trys}회, ${settings.test.goal}성, `;
+  let tSet = `테스트 설정 : ${settings.test.try}회, 목표 ${settings.test.goal}성, `;
   if (settings.test.budget === 0) {
-    tSet.innerText += "예산 무제한";
+    tSet += "예산 무제한";
   } else {
-    tSet.innerText += `예산 ${settings.test.budget}억`;
+    tSet += `예산 ${settings.test.budget}억`;
   }
-  summary.appendChild(tSet);
+  summaryUpdate(tSet);
 
-  let recov = document.createElement("li");
-  recov.innerText = `복구 옵션 : 비용 - 회당 ${settings.test.recover_cost}억, 최대복구횟수 - `;
-  if (settings.test.recover_try === -1) recov.innerText += "무제한";
-  else recov.innerText += `${settings.test.recover_try}회`;
-  summary.appendChild(recov);
+  // 복구 설정
+  let recov = `복구 옵션 : 비용 - 회당 ${settings.test.recover_cost}억, 최대복구횟수 - `;
+  if (settings.test.recover_spare === -1) recov += "무제한";
+  else recov += `${settings.test.recover_spare}회`;
+  summaryUpdate(recov);
 }
 
-inputs.forEach(function (item, idx) {
-  item.addEventListener("input", function () {
-    getSettings();
-    showSummary();
-  });
-});
-
 function disableEdit() {
+  let inputs = document.querySelectorAll("input");
   inputs.forEach(function (item, idx) {
     item.readOnly = true;
     item.disabled = true;
@@ -199,6 +138,7 @@ function disableEdit() {
   btn_submit.disabled = true;
 }
 function enableEdit() {
+  let inputs = document.querySelectorAll("input");
   inputs.forEach(function (item, idx) {
     item.readOnly = false;
     item.disabled = false;
