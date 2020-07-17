@@ -186,3 +186,19 @@ th {
   text-align: center;
   border-bottom: 1px solid black;
 }
+
+#summary li {
+  padding-left: 10px;
+  height: 1.5em;
+  line-height: 1.5em;
+}
+
+#summary li:nth-child(odd) {
+  background: #ccc;
+}
+#summary li:nth-child(even) {
+  background: #fff;
+}
+#summary .content {
+  margin: 5px 15px;
+}
