@@ -1,0 +1,65 @@
+<div class="title">
+  스타캐치 설정
+</div>
+<div class="content">
+  <ul>
+    <li>스타캐치 연산</li>
+    <li>
+      <label for="scatch_cal_sum">
+        <input
+          type="radio"
+          name="starcatch_cal"
+          id="scatch_cal_sum"
+          data-class="starcatch"
+          data-name="cal"
+          value="sum"
+        />합연산</label
+      >
+    </li>
+    <li>
+      <label for="scatch_cal_mul">
+        <input
+          type="radio"
+          name="starcatch_cal"
+          id="scatch_cal_mul"
+          data-class="starcatch"
+          data-name="cal"
+          value="mul"
+          checked
+        />곱연산</label
+      >
+    </li>
+    <li>
+      스타캐치 확률 :
+      <input
+        type="number"
+        name="starcatch_percent"
+        data-class="starcatch"
+        data-name="rate"
+        value="5"
+        min="0"
+        step="0.1"
+      />%
+    </li>
+    <li>스타캐치 조건</li>
+    <li>
+      <input
+        type="number"
+        name="starcatch_star"
+        data-class="starcatch"
+        data-name="condition"
+        value="12"
+        min="0"
+        max="25"
+      />성 이상에서만 스타캐치
+    </li>
+  </ul>
+  <div class="note">
+    <p>스타캐치 조건을 0으로 설정하면 항상 스타캐치를 합니다</p>
+    <p>스타캐치 조건을 25로 하면 스타캐치를 하지 않습니다</p>
+    <p>
+      스타캐치 성공 시, 실패 확률과 파괴 확률이 같은 비율로 감소한다
+      가정했습니다
+    </p>
+  </div>
+</div>

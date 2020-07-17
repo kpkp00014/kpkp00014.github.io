@@ -1,0 +1,188 @@
+#main_container {
+  display: flex;
+  justify-content: center;
+}
+
+#main_container .inner {
+  width: 900px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.hidden {
+  display: none;
+}
+
+@media screen and (max-width: 1000px) {
+  #main_container .inner {
+    width: 90%;
+  }
+}
+.relative {
+  display: relative;
+}
+
+#title {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.slide_wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+#slide_control {
+  width: 500px;
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  user-select: none;
+}
+
+.slide_num {
+  border: 3px solid #39bce7;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  text-align: center;
+  line-height: 27px;
+  font-size: 22px;
+  cursor: pointer;
+  z-index: 99;
+  background-color: white;
+}
+.slide_num.selected {
+  background-color: #39bce7;
+  color: white;
+}
+.slide {
+  display: none;
+  transition: all 2s;
+}
+
+.slide.selected {
+  display: block;
+  transition: all 2s;
+}
+
+.line {
+  position: absolute;
+  flex-grow: 1;
+  border: 3px solid #39bce7;
+  top: 50%;
+  left: 5%;
+  height: 0px;
+  width: 90%;
+  transform: translate(0, -50%);
+  z-index: 10;
+}
+.tab {
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  padding: 5px 10px;
+  line-height: 30px;
+}
+.tab .title {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+.tab .content {
+  display: none;
+  margin-top: 10px;
+  border-top: 1px solid black;
+}
+.tab.selected .content {
+  display: block;
+}
+
+.tab .arrow {
+  width: 30px;
+  height: 30px;
+  background: url(../img/arrow.png) no-repeat;
+  background-size: 30px 30px;
+}
+
+.tab.selected .arrow {
+  transform: rotate(-90deg);
+}
+
+.tab .title {
+  background: url(../img/arrow.png) no-repeat;
+  background-position: right;
+  background-size: 30px 30px;
+}
+
+.tab.selected .title {
+  background: url(../img/arrow_down.png) no-repeat;
+  background-position: right;
+  background-size: 30px 30px;
+}
+
+#result_log .title,
+#summary .title {
+  font-size: 30px;
+  text-align: center;
+  padding: 0 20px 10px 10px;
+  border-bottom: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+}
+
+#result_log table {
+  width: 100%;
+  min-width: 600px;
+}
+
+#result_log table td,
+th {
+  border-left: 1px solid white;
+  border-right: 1px solid white;
+  text-align: center;
+  line-height: 20px;
+}
+
+#result_log table tr:nth-child(odd) {
+  background: #ccc;
+}
+
+#result_log table tr:nth-child(even) {
+  background: #fff;
+}
+
+#result_log table tr:nth-child(1) {
+  background: #aaa;
+  height: 27px;
+  line-height: 27px;
+}
+
+#result_log table caption {
+  height: 30px;
+  line-height: 30px;
+  font-size: 24px;
+  margin-top: 15px;
+}
+
+.table_wrapper {
+  max-height: 1200px;
+  overflow: auto;
+}
+
+#result_ul {
+  margin-bottom: 15px;
+}
+
+#result_ul .header {
+  height: 30px;
+  line-height: 30px;
+  font-size: 24px;
+  margin-top: 15px;
+  text-align: center;
+  border-bottom: 1px solid black;
+}

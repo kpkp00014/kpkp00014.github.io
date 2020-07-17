@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/slide.css" />
+    <title>스타포스 가능?</title>
+    <script src="javascript/jquery.js"></script>
+    <script src="javascript/include.js"></script>
+  </head>
+  <body>
+    <div id="main_container">
+      <div class="inner">
+        <div id="title">스타포스 가능? 불가능?</div>
+        <div class="slide_wrapper">
+          <div id="slide_control">
+            <div class="line"></div>
+            <div class="slide_num selected">1</div>
+            <div class="slide_num">2</div>
+            <div class="slide_num">3</div>
+          </div>
+        </div>
+        <div id="main_slide">
+          <div class="slide selected">
+            <div class="tab" data-include="event"></div>
+            <div class="tab" data-include="additionalSale"></div>
+            <div class="tab" data-include="preventDestroy"></div>
+            <div class="tab" data-include="starcatchSetting"></div>
+            <div class="tab" data-include="itemInfo"></div>
+            <div class="tab" data-include="testSetting"></div>
+            <div class="tab" data-include="logSetting"></div>
+          </div>
+
+          <div class="slide">
+            <div id="summary">
+              <div class="title">설정 요약</div>
+              <div class="content"></div>
+            </div>
+          </div>
+          <div class="slide">
+            <div id="result_log">
+              <div class="title">
+                테스트 결과
+
+                <button id="btn_clear">로그 지우기</button>
+              </div>
+              <div class="content">
+                <div class="table_wrapper">
+                  <table>
+                    <caption>
+                      모든 강화 로그
+                    </caption>
+                    <tr>
+                      <th>테스트 번호</th>
+                      <th>강회 번호</th>
+                      <th>시작 값</th>
+                      <th>결과 값</th>
+                      <th>강화 결과</th>
+                      <th>누적 비용</th>
+                      <th>누적 파괴</th>
+                      <th class="hidden">소요 시간</th>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td>1</td>
+                      <td>12</td>
+                      <td>13</td>
+                      <td>성공</td>
+                      <td>100억</td>
+                      <td>0</td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td>1</td>
+                      <td>12</td>
+                      <td>13</td>
+                      <td>성공</td>
+                      <td>100억</td>
+                      <td>0</td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="table_wrapper">
+                  <table>
+                    <caption>
+                      테스트별 강화 결과
+                    </caption>
+                    <tr>
+                      <th>테스트 번호</th>
+                      <th>결과</th>
+                      <th>누적 비용</th>
+                      <th>누적 파괴</th>
+                      <th>강화 성공</th>
+                      <th>강화 실패</th>
+                      <th class="hidden">예상 강화 소요 시간</th>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td>성공</td>
+                      <td>12억</td>
+                      <td>1회</td>
+                      <td>2회</td>
+                      <td>1회</td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td>성공</td>
+                      <td>12억</td>
+                      <td>1회</td>
+                      <td>2회</td>
+                      <td>1회</td>
+                    </tr>
+                  </table>
+                </div>
+                <ul id="result_ul">
+                  <li>
+                    <div class="header">결론</div>
+                    <ul></ul>
+                  </li>
+                </ul>
+                <div class="note">
+                  <p>
+                    로그를 지우고 싶다면 아래의 로그 지우기 버튼을 눌러주세요
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="javascript/slide.js"></script>
+
+    <script src="javascript/const.js"></script>
+    <script src="javascript/io.js"></script>
+    <script src="javascript/starforce.js"></script>
+  </body>
+</html>

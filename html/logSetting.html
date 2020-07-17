@@ -1,0 +1,86 @@
+<div class="title">
+  로그 설정
+</div>
+<div class="content">
+  <ul>
+    <li>
+      <label for="log_each_all">
+        <input
+          type="checkbox"
+          id="log_each_all"
+          data-class="log"
+          data-name="each_all"
+        />각 테스트의 모든 강화 내역 출력
+      </label>
+    </li>
+    <li>
+      <label for="log_each_result">
+        <input
+          type="checkbox"
+          id="log_each_result"
+          data-class="log"
+          data-name="each_result"
+        />개별 테스트 결과 출력</label
+      >
+    </li>
+    <li>
+      <label for="log_average">
+        <input
+          type="checkbox"
+          id="log_average"
+          data-class="log"
+          data-name="average"
+        />평균 정보 출력</label
+      >
+    </li>
+    <li>
+      <label for="log_rate">
+        <input
+          type="checkbox"
+          id="log_rate"
+          data-class="log"
+          data-name="rate"
+          checked
+        />목표 달성률 표시</label
+      >
+    </li>
+    <li>
+      <label for="log_plot">
+        <input
+          type="checkbox"
+          id="log_plot"
+          data-class="log"
+          data-name="plot"
+          disabled
+        />성공한 케이스들의 그래프 출력(개발중)</label
+      >
+    </li>
+    <li>
+      <label for="log_number">
+        <input
+          type="checkbox"
+          id="log_number"
+          data-class="log"
+          data-name="number"
+          checked
+        />간략한 숫자 정보</label
+      >
+    </li>
+    <li>
+      <label for="log_time">
+        <input
+          type="checkbox"
+          id="log_time"
+          data-class="log"
+          data-name="time"
+        />강화 소요 시간 표시</label
+      >
+    </li>
+  </ul>
+  <div class="note">
+    <p>
+      각 테스트의 모든 강화 내역 출력은 테스트 횟수가 높을 경우 사용을 권장하지
+      않습니다
+    </p>
+  </div>
+</div>
