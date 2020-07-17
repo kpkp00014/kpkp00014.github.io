@@ -1,267 +1,619 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="css/reset.css" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/slide.css" />
+    <link rel="stylesheet" href="css/modal.css" />
+    <title>스타포스 가능?</title>
+    <script src="javascript/jquery.js"></script>
   </head>
   <body>
-    <div class="main_container">
-      <h2>스타포스 시뮬레이터</h2>
-      <div class="wrapper">
-        <!--이벤트-->
-        <div class="container">
-          <div class="title">이벤트</div>
-          <div class="content">
-            <ul>
-              <li>
-                <input type="radio" name="event" value="s15" />5, 10, 15성 100%
-                성공
-              </li>
-              <li>
-                <input type="radio" name="event" value="sale30" />30% 할인
-              </li>
-              <li>
-                <input type="radio" name="event" value="oneplus" />10성 이하 1+1
-              </li>
-              <li>
-                <input type="radio" name="event" value="none" checked />없음
-              </li>
-              <li>
-                <input type="checkbox" name="freeDes" value="1" />무료 파괴방지
-              </li>
-            </ul>
+    <div id="main_container">
+      <div class="inner">
+        <div id="title"></div>
+        <div class="slide_wrapper">
+          <div class="line"></div>
+          <div id="slide_control">
+            <div class="slide_num selected"></div>
+            <div class="slide_num"></div>
+            <div class="slide_num"></div>
           </div>
         </div>
-        <!--추가 할인-->
-        <div class="container">
-          <div class="title">추가 할인</div>
-          <div class="content">
-            <ul>
-              <li><input type="radio" name="mvp" value="0" checked />브론즈</li>
-              <li><input type="radio" name="mvp" value="3" />실버</li>
-              <li><input type="radio" name="mvp" value="5" />골드</li>
-              <li><input type="radio" name="mvp" value="10" />다이아 이상</li>
-              <li><input type="checkbox" name="pcroom" />pc방 할인</li>
-            </ul>
+        <div id="main_slide">
+          <div class="slide selected">
+            <div class="tab" data-include="event">
+              <div class="title">
+                이벤트
+              </div>
+              <div class="content">
+                <ul>
+                  <li>
+                    <label for="event_s15">
+                      <input
+                        type="radio"
+                        id="event_s15"
+                        name="event"
+                        value="s15"
+                        data-class="event"
+                        data-name="sunday"
+                      />5, 10, 15성 100% 성공</label
+                    >
+                  </li>
+                  <li>
+                    <label for="event_sale30">
+                      <input
+                        type="radio"
+                        name="event"
+                        id="event_sale30"
+                        value="sale30"
+                        data-class="event"
+                        data-name="sunday"
+                      />30% 할인</label
+                    >
+                  </li>
+                  <li>
+                    <label for="event_oneplus">
+                      <input
+                        type="radio"
+                        name="event"
+                        id="event_oneplus"
+                        value="oneplus"
+                        data-class="event"
+                        data-name="sunday"
+                      />10성 이하 1+1</label
+                    >
+                  </li>
+                  <li>
+                    <label for="event_none">
+                      <input
+                        type="radio"
+                        name="event"
+                        id="event_none"
+                        value="none"
+                        data-class="event"
+                        data-name="sunday"
+                        checked
+                      />없음</label
+                    >
+                  </li>
+                  <li>
+                    <label for="event_freeDes">
+                      <input
+                        type="checkbox"
+                        name="freeDes"
+                        id="event_freeDes"
+                        value="1"
+                        data-class="event"
+                        data-name="free"
+                      />무료 파괴방지</label
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="tab" data-include="additionalSale">
+              <div class="title">
+                추가 할인
+              </div>
+              <div class="content">
+                <ul>
+                  <li>
+                    <label for="mvp_bronze">
+                      <input
+                        type="radio"
+                        value="0"
+                        id="mvp_bronze"
+                        name="mvp"
+                        data-class="a_sale"
+                        data-name="mvp"
+                        checked
+                      />브론즈</label
+                    >
+                  </li>
+                  <li>
+                    <label for="mvp_silver">
+                      <input
+                        type="radio"
+                        value="3"
+                        id="mvp_silver"
+                        name="mvp"
+                        data-class="a_sale"
+                        data-name="mvp"
+                      />실버</label
+                    >
+                  </li>
+                  <li>
+                    <label for="mvp_gold">
+                      <input
+                        type="radio"
+                        value="5"
+                        id="mvp_gold"
+                        name="mvp"
+                        data-class="a_sale"
+                        data-name="mvp"
+                      />골드</label
+                    >
+                  </li>
+                  <li>
+                    <label for="mvp_dia">
+                      <input
+                        type="radio"
+                        value="10"
+                        id="mvp_dia"
+                        name="mvp"
+                        data-class="a_sale"
+                        data-name="mvp"
+                      />다이아 이상</label
+                    >
+                  </li>
+                  <li>
+                    <label for="pcroom">
+                      <input
+                        type="checkbox"
+                        id="pcroom"
+                        data-class="a_sale"
+                        data-name="pcroom"
+                      />pc방 할인</label
+                    >
+                  </li>
+                </ul>
+                <div class="note">
+                  <p>추가 할인은 17성 이하에서만 이루어집니다</p>
+                </div>
+              </div>
+            </div>
+            <div class="tab" data-include="preventDestroy">
+              <div class="title">
+                파괴 방지
+              </div>
+              <div class="content">
+                <ul>
+                  <li>
+                    <label for="prev_12"
+                      ><input
+                        type="checkbox"
+                        id="prev_12"
+                        data-ary="prevDes"
+                        value="12"
+                      />12성</label
+                    >
+                  </li>
+                  <li>
+                    <label for="prev_13"
+                      ><input
+                        type="checkbox"
+                        id="prev_13"
+                        data-ary="prevDes"
+                        value="13"
+                      />13성</label
+                    >
+                  </li>
+                  <li>
+                    <label for="prev_14"
+                      ><input
+                        type="checkbox"
+                        id="prev_14"
+                        data-ary="prevDes"
+                        value="14"
+                      />14성</label
+                    >
+                  </li>
+                  <li>
+                    <label for="prev_15"
+                      ><input
+                        type="checkbox"
+                        id="prev_15"
+                        data-ary="prevDes"
+                        value="15"
+                      />15성</label
+                    >
+                  </li>
+                  <li>
+                    <label for="prev_16"
+                      ><input
+                        type="checkbox"
+                        id="prev_16"
+                        data-ary="prevDes"
+                        value="16"
+                      />16성</label
+                    >
+                  </li>
+                </ul>
+                <div class="note">
+                  <p>파괴 방지에는 할인이 적용되지 않습니다</p>
+                </div>
+              </div>
+            </div>
+            <div class="tab" data-include="starcatchSetting">
+              <div class="title">
+                스타캐치 설정
+              </div>
+              <div class="content">
+                <ul>
+                  <li>스타캐치 연산</li>
+                  <li>
+                    <label for="scatch_cal_sum">
+                      <input
+                        type="radio"
+                        name="starcatch_cal"
+                        id="scatch_cal_sum"
+                        data-class="starcatch"
+                        data-name="cal"
+                        value="sum"
+                      />합연산</label
+                    >
+                  </li>
+                  <li>
+                    <label for="scatch_cal_mul">
+                      <input
+                        type="radio"
+                        name="starcatch_cal"
+                        id="scatch_cal_mul"
+                        data-class="starcatch"
+                        data-name="cal"
+                        value="mul"
+                        checked
+                      />곱연산</label
+                    >
+                  </li>
+                  <li>
+                    스타캐치 확률 :
+                    <input
+                      type="number"
+                      name="starcatch_percent"
+                      data-class="starcatch"
+                      data-name="rate"
+                      value="5"
+                      min="0"
+                      step="0.1"
+                    />%
+                  </li>
+                  <li>스타캐치 조건</li>
+                  <li>
+                    <input
+                      type="number"
+                      name="starcatch_star"
+                      data-class="starcatch"
+                      data-name="condition"
+                      value="12"
+                      min="0"
+                      max="25"
+                    />성 이상에서만 스타캐치
+                  </li>
+                </ul>
+                <div class="note">
+                  <p>스타캐치 조건을 0으로 설정하면 항상 스타캐치를 합니다</p>
+                  <p>스타캐치 조건을 25로 하면 스타캐치를 하지 않습니다</p>
+                  <p>
+                    스타캐치 성공 시, 실패 확률과 파괴 확률이 같은 비율로
+                    감소한다 가정했습니다
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="tab" data-include="itemInfo">
+              <div class="title">
+                아이템 정보
+              </div>
+              <div class="content">
+                <ul>
+                  <li>
+                    착용 레벨 :
+                    <input
+                      type="number"
+                      min="130"
+                      max="300"
+                      data-class="item"
+                      data-name="level"
+                      value="160"
+                    />
+                  </li>
+                  <li>
+                    스타포스 시작 값 :
+                    <input
+                      type="number"
+                      data-class="item"
+                      data-name="star"
+                      min="0"
+                      max="24"
+                      value="12"
+                      step="1"
+                    />성
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="tab" data-include="testSetting">
+              <div class="title">
+                테스트 설정
+              </div>
+              <div class="content">
+                <ul>
+                  <li>
+                    테스트 :
+                    <input
+                      type="number"
+                      data-class="test"
+                      data-name="try"
+                      min="1"
+                      value="100"
+                    />회
+                  </li>
+                  <li>
+                    목표 스타포스 :
+                    <input
+                      type="number"
+                      data-class="test"
+                      data-name="goal"
+                      value="17"
+                      min="1"
+                      max="25"
+                      step="1"
+                    />성
+                  </li>
+                  <li>
+                    예산 :
+                    <input
+                      type="number"
+                      step="0.01"
+                      data-class="test"
+                      data-name="budget"
+                      value="10"
+                      min="0"
+                    />억 메소
+                  </li>
+                  <li>
+                    복구 비용 :
+                    <input
+                      type="number"
+                      step="0.01"
+                      data-class="test"
+                      data-name="recover_cost"
+                      value="0"
+                    />억 메소
+                  </li>
+                  <li>스페어 갯수</li>
+                  <li>
+                    <input
+                      type="number"
+                      data-class="test"
+                      data-name="recover_spare"
+                      min="-1"
+                      value="-1"
+                    />개
+                  </li>
+                  <li>스타캐치시 강화 소요 시간</li>
+                  <li>
+                    <input
+                      type="number"
+                      data-class="test"
+                      data-name="time_sc"
+                      min="0"
+                      value="10"
+                    />초
+                  </li>
+                  <li>스타캐치 안할 시 강화 소요 시간</li>
+                  <li>
+                    <input
+                      type="number"
+                      data-class="test"
+                      data-name="time_nsc"
+                      min="0"
+                      value="5"
+                    />초
+                  </li>
+                </ul>
+                <div class="note">
+                  <p>
+                    스페어 갯수는 경매장에 물량이 제한되어 있는 경우를 위한
+                    옵션입니다
+                  </p>
+                  <p>스페어가 무제한인 경우 -1을 넣어 주세요</p>
+                  <p>예산이 무제한인 경우 0을 넣어 주세요</p>
+                </div>
+              </div>
+            </div>
+            <div class="tab" data-include="logSetting">
+              <div class="title">
+                로그 설정
+              </div>
+              <div class="content">
+                <ul>
+                  <li>
+                    <label for="log_each_all">
+                      <input
+                        type="checkbox"
+                        id="log_each_all"
+                        data-class="log"
+                        data-name="each_all"
+                      />각 테스트의 모든 강화 내역 출력
+                    </label>
+                  </li>
+                  <li>
+                    <label for="log_each_result">
+                      <input
+                        type="checkbox"
+                        id="log_each_result"
+                        data-class="log"
+                        data-name="each_result"
+                      />개별 테스트 결과 출력</label
+                    >
+                  </li>
+                  <li>
+                    <label for="log_average">
+                      <input
+                        type="checkbox"
+                        id="log_average"
+                        data-class="log"
+                        data-name="average"
+                      />평균 정보 출력</label
+                    >
+                  </li>
+                  <li>
+                    <label for="log_rate">
+                      <input
+                        type="checkbox"
+                        id="log_rate"
+                        data-class="log"
+                        data-name="rate"
+                        checked
+                      />목표 달성률 표시</label
+                    >
+                  </li>
+                  <li>
+                    <label for="log_plot">
+                      <input
+                        type="checkbox"
+                        id="log_plot"
+                        data-class="log"
+                        data-name="plot"
+                        disabled
+                      />성공한 케이스들의 그래프 출력(개발중)</label
+                    >
+                  </li>
+                  <li>
+                    <label for="log_number">
+                      <input
+                        type="checkbox"
+                        id="log_number"
+                        data-class="log"
+                        data-name="number"
+                        checked
+                      />간략한 숫자 정보</label
+                    >
+                  </li>
+                  <li>
+                    <label for="log_time">
+                      <input
+                        type="checkbox"
+                        id="log_time"
+                        data-class="log"
+                        data-name="time"
+                      />강화 소요 시간 표시</label
+                    >
+                  </li>
+                </ul>
+                <div class="note">
+                  <p>
+                    각 테스트의 모든 강화 내역 출력은 테스트 횟수가 높을 경우
+                    사용을 권장하지 않습니다
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="note">
-            <p>추가 할인은 17성 이하에서만 이루어집니다</p>
+
+          <div class="slide">
+            <div id="summary">
+              <div class="title">
+                설정 요약
+                <div class="btn">
+                  <button id="btn_modal">강화 정보</button>
+                </div>
+              </div>
+              <div class="content">
+                <ul></ul>
+              </div>
+              <div id="modal" class="modal">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <p>강화 정보</p>
+                  </div>
+                  <div class="modal-body">
+                    <div class="table_wrapper">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>시작</th>
+                            <th>강화비</th>
+                            <th>비률</th>
+                            <th>성공</th>
+                            <th>실패</th>
+                            <th>파괴</th>
+                          </tr>
+                        </thead>
+                        <tbody></tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="modal-footer"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="slide">
+            <div id="result_log">
+              <div class="title">
+                테스트 결과
+                <div class="btn">
+                  <button id="btn_submit">테스트 시작</button>
+                  <button id="btn_clear">로그 지우기</button>
+                </div>
+              </div>
+              <div class="content">
+                <ul id="result_ul">
+                  <li>
+                    <div class="header">결론</div>
+                    <ul></ul>
+                  </li>
+                </ul>
+                <div class="table_wrapper">
+                  <table>
+                    <caption>
+                      모든 강화 로그
+                    </caption>
+                    <thead>
+                      <tr>
+                        <th>테스트 번호</th>
+                        <th>강회 번호</th>
+                        <th>시작 값</th>
+                        <th>결과 값</th>
+                        <th>강화 결과</th>
+                        <th>누적 비용</th>
+                        <th>누적 파괴</th>
+                        <th class="timecal hidden">소요 시간</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+                <div class="table_wrapper">
+                  <table>
+                    <caption>
+                      테스트별 강화 결과
+                    </caption>
+                    <thead>
+                      <tr>
+                        <th>테스트 번호</th>
+                        <th>결과</th>
+                        <th>누적 비용</th>
+                        <th>누적 파괴</th>
+                        <th>강화 성공</th>
+                        <th>강화 실패</th>
+                        <th class="timecal hidden">예상 강화 소요 시간</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+                <div class="note">
+                  <p>
+                    로그를 지우고 싶다면 아래의 로그 지우기 버튼을 눌러주세요
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <!--파괴 방지-->
-        <div class="container">
-          <div class="title">파괴 방지</div>
-          <div class="content">
-            <ul>
-              <li><input type="checkbox" name="des12" />12성</li>
-              <li><input type="checkbox" name="des13" />13성</li>
-              <li><input type="checkbox" name="des14" />14성</li>
-              <li><input type="checkbox" name="des15" />15성</li>
-              <li><input type="checkbox" name="des16" />16성</li>
-            </ul>
-          </div>
-          <div class="note">
-            <p>파괴 방지에는 할인이 적용되지 않습니다</p>
-          </div>
-        </div>
-        <!--스타캐치 설정-->
-        <div class="container">
-          <div class="title">스타캐치 설정</div>
-          <div class="content">
-            <ul>
-              <li>스타캐치 연산</li>
-              <li>
-                <input type="radio" name="starcatch_cal" value="sum" />합연산
-              </li>
-              <li>
-                <input
-                  type="radio"
-                  name="starcatch_cal"
-                  value="mul"
-                  checked
-                />곱연산
-              </li>
-              <li>스타캐치 확률</li>
-              <li>
-                <input
-                  type="number"
-                  name="starcatch_percent"
-                  value="5"
-                  min="0"
-                  step="0.1"
-                />%
-              </li>
-              <li>스타캐치 조건</li>
-              <li>
-                <input
-                  type="number"
-                  name="starcatch_star"
-                  value="12"
-                  min="0"
-                  max="25"
-                />성 이상에서만 스타캐치
-              </li>
-            </ul>
-          </div>
-          <div class="note">
-            <p>스타캐치 조건을 0으로 설정하면 항상 스타캐치를 합니다</p>
-            <p>스타캐치 조건을 25로 하면 스타캐치를 하지 않습니다</p>
-            <p>
-              스타캐치 성공 시, 실패 확률과 파괴 확률이 같은 비율로 감소한다
-              가정했습니다
-            </p>
-          </div>
-        </div>
-        <!--아이템 정보-->
-        <div class="container">
-          <div class="title">아이템 정보</div>
-          <div class="content">
-            <ul>
-              <li>착용 레벨</li>
-              <li>
-                lv
-                <input
-                  type="number"
-                  name="equiplv"
-                  min="130"
-                  max="300"
-                  value="160"
-                />
-              </li>
-              <li>스타포스 시작 값</li>
-              <li><input type="number" name="equipstar" value="12" />성</li>
-            </ul>
-          </div>
-        </div>
-        <!--테스트 설정-->
-        <div class="container">
-          <div class="title">테스트 설정</div>
-          <div class="content">
-            <ul>
-              <li>테스트 횟수</li>
-              <li>
-                <input type="number" name="goal_try" min="1" value="1000" />회
-              </li>
-              <li>목표 스타포스</li>
-              <li><input type="number" name="goal_star" value="17" />성</li>
-              <li>예산</li>
-              <li>
-                <input
-                  type="number"
-                  step="0.01"
-                  name="goal_budget"
-                  value="10"
-                  min="0"
-                />억 메소
-              </li>
-              <li>복구 비용</li>
-              <li>
-                <input
-                  type="number"
-                  step="0.01"
-                  name="goal_recover_cost"
-                  value="0"
-                />억 메소
-              </li>
-              <li>스페어 갯수</li>
-              <li>
-                <input
-                  type="number"
-                  name="goal_recover_try"
-                  min="-1"
-                  value="-1"
-                />개
-              </li>
-              <li>스타캐치시 강화 소요 시간</li>
-              <li>
-                <input type="number" name="goal_sf_try" min="1" value="10" />초
-              </li>
-              <li>스타캐치 안할 시 강화 소요 시간</li>
-              <li>
-                <input type="number" name="goal_nsf_try" min="1" value="5" />초
-              </li>
-            </ul>
-          </div>
-          <div class="note">
-            <p>
-              스페어 갯수는 경매장에 물량이 제한되어 있는 경우를 위한 옵션입니다
-            </p>
-            <p>스페어가 무제한인 경우 -1을 넣어 주세요</p>
-            <p>예산이 무제한인 경우 0을 넣어 주세요</p>
-          </div>
-        </div>
-        <!--로그 설정-->
-        <div class="container">
-          <div class="title">로그 설정</div>
-          <div class="content">
-            <ul>
-              <li>
-                <input type="checkbox" name="log_each" />각 테스트의 모든 강화
-                내역 출력
-              </li>
-              <li>
-                <input type="checkbox" name="log_each_result" />개별 테스트 결과
-                출력
-              </li>
-              <li>
-                <input type="checkbox" name="log_times" />평균 강화 시도 횟수
-                출력
-              </li>
-              <li>
-                <input type="checkbox" name="log_rate" checked />목표 달성률
-                표시
-              </li>
-              <li>
-                <input type="checkbox" name="log_plot" disabled />성공한
-                케이스들의 그래프 출력(개발중)
-              </li>
-              <li>
-                <input type="checkbox" name="log_destroy" checked />아이템 파괴
-                통계 출력
-              </li>
-              <li>
-                <input type="checkbox" name="log_number" />간략한 숫자 정보
-              </li>
-              <li>
-                <input type="checkbox" name="log_running_time" />강화 소요 시간
-                표시
-              </li>
-            </ul>
-          </div>
-          <div class="note">
-            <p>
-              각 테스트의 모든 강화 내역 출력은 테스트 횟수가 높을 경우 사용을
-              권장하지 않습니다
-            </p>
-          </div>
-        </div>
-        <!--설정 요약-->
-        <div class="container">
-          <div class="title">설정 요약</div>
-          <div class="content">
-            <ul id="summary"></ul>
-          </div>
-        </div>
-        <button id="btn_run">실행</button>
-        <button id="btn_info">확률 정보</button>
-      </div>
-      <div class="wrapper">
-        <div class="container">
-          <div class="title">테스트 결과</div>
-          <div class="content">
-            <ul id="result"></ul>
-          </div>
-          <div class="note">
-            <p>
-              로그를 지우고 싶다면 아래의 로그 지우기 버튼을 눌러주세요
-            </p>
-          </div>
-        </div>
-        <button id="btn_clear">로그 지우기</button>
       </div>
     </div>
     <script src="javascript/const.js"></script>
+    <script src="javascript/storeData.js"></script>
     <script src="javascript/io.js"></script>
+    <script src="javascript/slide.js"></script>
+    <script src="javascript/modal.js"></script>
     <script src="javascript/starforce.js"></script>
   </body>
 </html>

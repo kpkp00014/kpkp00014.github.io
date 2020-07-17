@@ -36,4 +36,4 @@ $(document).on("change", "input", function (e) {
   showSummary();
 });
 
-include();
+getData();

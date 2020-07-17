@@ -148,14 +148,18 @@ function enableEdit() {
 
 btn_submit.addEventListener("click", function (e) {
   disableEdit();
+  storeData();
   starforce();
 });
 
 window.onload = function () {
   getSettings();
   showSummary();
+  getData();
 };
 
 btn_logClear.addEventListener("click", function (e) {
-  result.innerHTML = "";
+  every_log.innerHTML = "";
+  result_log.innerHTML = "";
+  result_ul.innerHTML = "";
 });

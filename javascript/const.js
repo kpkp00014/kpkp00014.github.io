@@ -11,6 +11,14 @@ const settings = {
 const summary = document.querySelector("#summary .content ul");
 const btn_submit = document.querySelector("#btn_submit");
 const btn_logClear = document.querySelector("#btn_clear");
+const resultArr = [];
+const every_log = document
+  .querySelectorAll("#result_log table")[0]
+  .querySelector("tbody");
+const result_log = document
+  .querySelectorAll("#result_log table")[1]
+  .querySelector("tbody");
+const result_ul = document.querySelector("#result_ul ul");
 
 const prob = [
   // prob[n][0] - n성에서 스타포스 시도 시, 성공 확률
@@ -42,12 +50,6 @@ const prob = [
   [0.02, 0.3], //23성
   [0.01, 0.4], //24성
 ];
-
-function resultInput(str) {
-  let li = document.createElement("li");
-  li.innerText = str;
-  result.appendChild(li);
-}
 
 class Starforce {
   constructor(level, star) {
@@ -135,6 +137,7 @@ class Starforce {
   // 스타포스 1회 동작
   starforce(i) {
     // 스타포스 비용을 더한다
+    let before = this.star;
     this.cost += this.starCost();
     this.runningTime += this.checkStarcatch()
       ? settings.test.sf_time
@@ -150,9 +153,16 @@ class Starforce {
 
       this.chance = 0;
       this.successCount++;
-      if (settings.logs.each)
-        resultInput(
-          `${i} -  성공  누적비용: ${splitNum(this.cost)}  현재: ${this.star}성`
+      if (settings.log.each_all)
+        tableUpdate(
+          every_log,
+          i,
+          this.successCount + this.failCount,
+          before,
+          this.star,
+          "성공",
+          splitNum(this.cost),
+          this.destroyCount
         );
     } else {
       // 스타포스 실패 시
@@ -166,11 +176,16 @@ class Starforce {
         this.star = 12;
         this.chance = 0;
 
-        if (settings.logs.each)
-          resultInput(
-            `${i} -  파괴   누적비용: ${splitNum(this.cost)}  누적파괴: ${
-              this.destroyCount
-            }`
+        if (settings.log.each_all)
+          tableUpdate(
+            every_log,
+            i,
+            this.successCount + this.failCount,
+            before,
+            this.star,
+            "파괴",
+            splitNum(this.cost),
+            this.destroyCount
           );
       } else {
         // 파괴 실패!
@@ -180,11 +195,16 @@ class Starforce {
           this.chance++;
           this.star--;
         }
-        if (settings.logs.each)
-          resultInput(
-            `${i} -  실패   누적비용: ${splitNum(this.cost)}  현재: ${
-              this.star
-            }성`
+        if (settings.log.each_all)
+          tableUpdate(
+            every_log,
+            i,
+            this.successCount + this.failCount,
+            before,
+            this.star,
+            "실패",
+            splitNum(this.cost),
+            this.destroyCount
           );
       }
     }
@@ -233,4 +253,10 @@ function tableUpdate(tbody) {
     tr.appendChild(td);
   }
   tbody.appendChild(tr);
+}
+
+function ulUpdate(text) {
+  let txt = document.createElement("li");
+  txt.textContent = text;
+  result_ul.appendChild(txt);
 }

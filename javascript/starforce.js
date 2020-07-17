@@ -1,5 +1,6 @@
 function starforce() {
-  resultInput("시뮬레이션을 시작합니다");
+  let t1 = new Date();
+  ulUpdate(`${t1} 테스트를 실시합니다`);
   resultArr.length = 0;
   // 테스트 횟수만큼 반복 실행
   for (var i = 1; i <= settings.test.try; i++) {
@@ -47,30 +48,36 @@ function starforce() {
           break;
         } else {
           // 위 조건에 다 해당하지 않는 경우 스타포스를 시도한다
-          item.starforce();
+          item.starforce(i);
         }
       }
     }
   }
+
   fianlResult();
   enableEdit();
+  let t2 = new Date();
+  ulUpdate(`${t2} 테스트가 종료되었습니다`);
+  ulUpdate(`${(t2 - t1) / 1000}초 소요되었습니다`);
 }
 
 function testResult(i, item) {
-  if (settings.logs.each_result) {
-    let str = `-----  ${i}번 결과 : `;
-    str += item.goal ? "성공" : "실패";
-    str += ` ${item.failCause} -----`;
-    let str2 = `누적비용: ${splitNum(item.cost)}, `;
-    str2 += `파괴 ${item.destroyCount}회, 성공 ${item.successCount}, 실패 ${item.failCount}`;
-
-    resultInput(str);
-    resultInput(str2);
-
-    if (settings.logs.running_time) {
+  if (settings.log.each_result) {
+    tableUpdate(
+      result_log,
+      i,
+      item.goal ? "성공" : "실패",
+      splitNum(item.cost),
+      item.destroyCount,
+      item.successCount,
+      item.failCount
+    );
+    /*
+    if (settings.log.running_time) {
       let time = secToDay(item.runningTime);
       resultInput(`강화 소요 시간 : ${time}`);
     }
+    */
   }
 }
 
@@ -91,7 +98,7 @@ function secToDay(seconds) {
 
 function fianlResult() {
   const length = resultArr.length;
-  resultInput("----- 최종 강화 결과 -----");
+  ulUpdate("----- 최종 강화 결과 -----");
   let results = {
     success: {
       num: 0,
@@ -125,49 +132,49 @@ function fianlResult() {
   }
 
   // 목표 달성
-  resultInput(
+  ulUpdate(
     `목표 달성 : ${results.success.num}/${resultArr.length} [${
       (results.success.num / resultArr.length) * 100
     }%]`
   );
 
   // 성공 케이스
-  resultInput(` ------ 성공 통계 ------`);
-  resultInput(` 전체 수 : ${splitNum(results.success.num)} `);
-  resultInput(
+  ulUpdate(` ------ 성공 통계 ------`);
+  ulUpdate(` 전체 수 : ${splitNum(results.success.num)} `);
+  ulUpdate(
     ` 평균 성공 횟수 : ${splitNum(
       results.success.success / results.success.num
     )}회 `
   );
-  resultInput(
+  ulUpdate(
     ` 평균 실패 횟수 : ${splitNum(
       results.success.fail / results.success.num
     )}회`
   );
-  resultInput(
+  ulUpdate(
     ` 평균 파괴 횟수 : ${splitNum(
       results.success.destroy / results.success.num
     )}회`
   );
-  resultInput(
+  ulUpdate(
     ` 평균 누적 비용 : ${splitNum(
       results.success.cost / results.success.num
     )} 메소`
   );
 
   // 실패 케이스
-  resultInput(` ------ 실패 통계 ------`);
-  resultInput(` 전체 수 : ${splitNum(results.fail.num)} `);
-  resultInput(
+  ulUpdate(` ------ 실패 통계 ------`);
+  ulUpdate(` 전체 수 : ${splitNum(results.fail.num)} `);
+  ulUpdate(
     ` 평균 성공 횟수 : ${splitNum(results.fail.success / results.fail.num)}회`
   );
-  resultInput(
+  ulUpdate(
     ` 평균 실패 횟수 : ${splitNum(results.fail.fail / results.fail.num)}회`
   );
-  resultInput(
+  ulUpdate(
     ` 평균 파괴 횟수 : ${splitNum(results.fail.destroy / results.fail.num)}회`
   );
-  resultInput(
+  ulUpdate(
     ` 평균 누적 비용 : ${splitNum(results.fail.cost / results.fail.num)}메소`
   );
 }

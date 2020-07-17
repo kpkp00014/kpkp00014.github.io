@@ -194,9 +194,10 @@ table caption {
 }
 
 .table_wrapper {
-  max-height: 1200px;
+  max-height: 700px;
   width: inherit;
   overflow: auto;
+  margin-bottom: 20px;
 }
 
 #result_ul {
