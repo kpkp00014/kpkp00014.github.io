@@ -9,14 +9,13 @@
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 100;
+  justify-content: center;
+  flex-direction: column;
 }
 .modal-content {
-  position: fixed;
-  top: 20%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90%;
-  max-width: 700px;
+  position: relative;
+  width: auto;
+  height: auto;
   background-color: #fefefe;
   margin: 20% auto;
   padding: 0;
@@ -29,10 +28,11 @@
 .modal-content .table_wrapper {
   display: flex;
   justify-content: center;
+  overflow: auto;
 }
 
 .modal-content table {
-  width: 80%;
+  width: auto;
 }
 @keyframes animatetop {
   from {
@@ -95,4 +95,10 @@
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+@media screen and (max-width: 650px) {
+  .modal-content {
+    width: 90%;
+  }
 }

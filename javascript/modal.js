@@ -4,7 +4,7 @@ const span = modal.querySelector("#modal .close");
 const modalTable = modal.querySelector("table tbody");
 btn_modal.onclick = function () {
   modalContent();
-  modal.style.display = "block";
+  modal.style.display = "flex";
 };
 span.onclick = function () {
   modal.style.display = "none";
