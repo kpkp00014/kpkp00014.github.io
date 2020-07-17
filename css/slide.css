@@ -199,15 +199,13 @@ th {
 #summary .content {
   margin: 5px 15px;
 }
+
+#main_container {
+  width: device-width;
+}
+
 @media screen and (max-width: 1000px) {
   #main_container .inner {
     width: 90%;
-    background-color: yellow;
-  }
-}
-@media screen and (max-width: 600px) {
-  #main_container .inner {
-    width: 90%;
-    background-color: red;
   }
 }
