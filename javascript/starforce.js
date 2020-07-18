@@ -143,10 +143,10 @@ function fianlResult() {
   }
   if (settings.log.rate) {
     // 목표 달성
+    let result = (results.success.num / resultArr.length) * 100;
+    result = Math.round(result * 100) / 100;
     ulUpdate(
-      `목표 달성 : ${results.success.num}/${resultArr.length} [${splitNum(
-        (results.success.num / resultArr.length) * 100
-      )}%]`
+      `목표 달성 : ${results.success.num}/${resultArr.length} [${result}%]`
     );
   }
   if (settings.log.average) {
@@ -261,17 +261,13 @@ function fianlResult() {
       );
 
       ulUpdate(` ------ 실패 분석 ------`);
+      let cresult = (results.failCause.money / results.fail.num) * 100;
+      cresult = Math.round(cresult * 100) / 100;
+      ulUpdate(`강화비용 부족 : ${results.failCause.money}건 [${cresult}]%`);
 
-      ulUpdate(
-        `강화비용 부족 : ${results.failCause.money}건 [${splitNum(
-          (results.failCause.money / results.fail.num) * 100
-        )}]%`
-      );
-      ulUpdate(
-        `스페어 부족 : ${results.failCause.spare}건 [${splitNum(
-          (results.failCause.spare / results.fail.num) * 100
-        )}]%`
-      );
+      let sresult = (results.failCause.spare / results.fail.num) * 100;
+      sresult = Math.round(sresult * 100) / 100;
+      ulUpdate(`스페어 부족 : ${results.failCause.spare}건 [${sresult}]%`);
     }
   }
 }
