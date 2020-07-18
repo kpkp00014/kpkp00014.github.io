@@ -233,6 +233,20 @@ table caption {
   width: device-width;
 }
 
+#result_log .table_wrapper:nth-child(3) table.notimecal th:nth-child(7),
+#result_log .table_wrapper:nth-child(3) table.notimecal td:nth-child(7) {
+  display: none;
+}
+
+#result_ul ul {
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+#result_ul ul li {
+  margin-left: 15px;
+  line-height: 20px;
+  font-size: 17px;
+}
 @media screen and (max-width: 1000px) {
   #main_container .inner {
     width: 90%;

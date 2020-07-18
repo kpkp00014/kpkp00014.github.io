@@ -140,15 +140,15 @@ class Starforce {
     let before = this.star;
     this.cost += this.starCost();
     this.runningTime += this.checkStarcatch()
-      ? settings.test.sf_time
-      : settings.test.nsf_time;
+      ? settings.test.time_sc
+      : settings.test.time_nsc;
     if (this.statusDestroy) this.statusDestroy = false; // 복구함
 
     // 스타포스 시도
     if (this.starTest(this.starPercentage())) {
       // 스타포스 성공 시
       // 1+1 이벤트 체크
-      if (settings.event === "oneplus" && this.star <= 10) this.star++;
+      if (settings.event.sunday === "oneplus" && this.star <= 10) this.star++;
       this.star++;
 
       this.chance = 0;
@@ -176,7 +176,7 @@ class Starforce {
         this.star = 12;
         this.chance = 0;
 
-        if (settings.log.each_all)
+        if (settings.log.each_all) {
           tableUpdate(
             every_log,
             i,
@@ -187,6 +187,7 @@ class Starforce {
             splitNum(this.cost),
             this.destroyCount
           );
+        }
       } else {
         // 파괴 실패!
         if ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20].includes(this.star)) {
@@ -195,7 +196,7 @@ class Starforce {
           this.chance++;
           this.star--;
         }
-        if (settings.log.each_all)
+        if (settings.log.each_all) {
           tableUpdate(
             every_log,
             i,
@@ -206,6 +207,7 @@ class Starforce {
             splitNum(this.cost),
             this.destroyCount
           );
+        }
       }
     }
     if (this.cost > settings.test.budget * 100000000) {

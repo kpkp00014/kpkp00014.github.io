@@ -16,8 +16,8 @@ function starforce() {
           testResult(i, item);
           break;
         } else if (
-          settings.test.recover_try !== -1 &&
-          item.destroyCount > settings.test.recover_try
+          settings.test.recover_spare !== -1 &&
+          item.destroyCount > settings.test.recover_spare
         ) {
           // 스페어 부족으로 실패 할 경우
           item.failCause = "스페어 부족";
@@ -32,8 +32,8 @@ function starforce() {
           testResult(i, item);
           break;
         } else if (
-          settings.test.recover_try !== -1 &&
-          item.destroyCount > settings.test.recover_try
+          settings.test.recover_spare !== -1 &&
+          item.destroyCount > settings.test.recover_spare
         ) {
           // 스페어가 부족한 경우
           item.failCause = "스페어 부족";
@@ -70,14 +70,9 @@ function testResult(i, item) {
       splitNum(item.cost),
       item.destroyCount,
       item.successCount,
-      item.failCount
+      item.failCount,
+      secToDay(item.runningTime)
     );
-    /*
-    if (settings.log.running_time) {
-      let time = secToDay(item.runningTime);
-      resultInput(`강화 소요 시간 : ${time}`);
-    }
-    */
   }
 }
 
@@ -114,6 +109,10 @@ function fianlResult() {
       destroy: 0,
       cost: 0,
     },
+    failCause: {
+      money: 0,
+      spare: 0,
+    },
   };
   for (var i = 0; i < length; i++) {
     if (resultArr[i].goal) {
@@ -128,53 +127,71 @@ function fianlResult() {
       results.fail.fail += resultArr[i].failCount;
       results.fail.destroy += resultArr[i].destroyCount;
       results.fail.cost += resultArr[i].cost;
+
+      if (resultArr[i].failCause === "스페어 부족") results.failCause.spare++;
+      else if (resultArr[i].failCause === "예산 초과")
+        results.failCause.money++;
     }
   }
+  if (settings.log.rate) {
+    // 목표 달성
+    ulUpdate(
+      `목표 달성 : ${results.success.num}/${resultArr.length} [${
+        (results.success.num / resultArr.length) * 100
+      }%]`
+    );
+  }
+  if (settings.log.average) {
+    // 성공 케이스
+    ulUpdate(` ------ 성공 통계 ------`);
+    ulUpdate(` 전체 수 : ${splitNum(results.success.num)} `);
+    ulUpdate(
+      ` 평균 성공 횟수 : ${splitNum(
+        results.success.success / results.success.num
+      )}회 `
+    );
+    ulUpdate(
+      ` 평균 실패 횟수 : ${splitNum(
+        results.success.fail / results.success.num
+      )}회`
+    );
+    ulUpdate(
+      ` 평균 파괴 횟수 : ${splitNum(
+        results.success.destroy / results.success.num
+      )}회`
+    );
+    ulUpdate(
+      ` 평균 누적 비용 : ${splitNum(
+        results.success.cost / results.success.num
+      )} 메소`
+    );
 
-  // 목표 달성
-  ulUpdate(
-    `목표 달성 : ${results.success.num}/${resultArr.length} [${
-      (results.success.num / resultArr.length) * 100
-    }%]`
-  );
+    // 실패 케이스
+    ulUpdate(` ------ 실패 통계 ------`);
+    ulUpdate(` 전체 수 : ${splitNum(results.fail.num)} `);
+    ulUpdate(
+      ` 평균 성공 횟수 : ${splitNum(results.fail.success / results.fail.num)}회`
+    );
+    ulUpdate(
+      ` 평균 실패 횟수 : ${splitNum(results.fail.fail / results.fail.num)}회`
+    );
+    ulUpdate(
+      ` 평균 파괴 횟수 : ${splitNum(results.fail.destroy / results.fail.num)}회`
+    );
+    ulUpdate(
+      ` 평균 누적 비용 : ${splitNum(results.fail.cost / results.fail.num)}메소`
+    );
+  }
+  ulUpdate(` ------ 실패 분석 ------`);
 
-  // 성공 케이스
-  ulUpdate(` ------ 성공 통계 ------`);
-  ulUpdate(` 전체 수 : ${splitNum(results.success.num)} `);
   ulUpdate(
-    ` 평균 성공 횟수 : ${splitNum(
-      results.success.success / results.success.num
-    )}회 `
+    `강화비용 부족 : ${results.failCause.money}건 [${splitNum(
+      (results.failCause.money / results.fail.num) * 100
+    )}]%`
   );
   ulUpdate(
-    ` 평균 실패 횟수 : ${splitNum(
-      results.success.fail / results.success.num
-    )}회`
-  );
-  ulUpdate(
-    ` 평균 파괴 횟수 : ${splitNum(
-      results.success.destroy / results.success.num
-    )}회`
-  );
-  ulUpdate(
-    ` 평균 누적 비용 : ${splitNum(
-      results.success.cost / results.success.num
-    )} 메소`
-  );
-
-  // 실패 케이스
-  ulUpdate(` ------ 실패 통계 ------`);
-  ulUpdate(` 전체 수 : ${splitNum(results.fail.num)} `);
-  ulUpdate(
-    ` 평균 성공 횟수 : ${splitNum(results.fail.success / results.fail.num)}회`
-  );
-  ulUpdate(
-    ` 평균 실패 횟수 : ${splitNum(results.fail.fail / results.fail.num)}회`
-  );
-  ulUpdate(
-    ` 평균 파괴 횟수 : ${splitNum(results.fail.destroy / results.fail.num)}회`
-  );
-  ulUpdate(
-    ` 평균 누적 비용 : ${splitNum(results.fail.cost / results.fail.num)}메소`
+    `스페어 부족 : ${results.failCause.spare}건 [${splitNum(
+      (results.failCause.spare / results.fail.num) * 100
+    )}]%`
   );
 }

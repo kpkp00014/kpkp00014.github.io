@@ -127,6 +127,7 @@ function showSummary() {
   if (settings.test.recover_spare === -1) recov += "무제한";
   else recov += `${settings.test.recover_spare}회`;
   summaryUpdate(recov);
+  showLog();
 }
 
 function disableEdit() {
@@ -163,3 +164,27 @@ btn_logClear.addEventListener("click", function (e) {
   result_log.innerHTML = "";
   result_ul.innerHTML = "";
 });
+
+function showLog() {
+  let every = document.querySelectorAll("#result_log table")[0];
+  let res = document.querySelectorAll("#result_log table")[1];
+
+  if (!settings.log.each_all) {
+    every.classList.add("hidden");
+  } else {
+    every.classList.remove("hidden");
+  }
+  if (!settings.log.each_result) {
+    res.classList.add("hidden");
+  } else {
+    res.classList.remove("hidden");
+  }
+
+  if (!settings.log.time) {
+    every.classList.add("notimecal");
+    res.classList.add("notimecal");
+  } else {
+    every.classList.remove("notimecal");
+    res.classList.remove("notimecal");
+  }
+}
