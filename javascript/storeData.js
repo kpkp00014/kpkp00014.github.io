@@ -3,9 +3,11 @@ function storeData() {
 }
 
 function getData() {
-  let store = localStorage.getItem("settings", JSON.stringify(settings));
-  store = JSON.parse(store);
-  setDefault(store);
+  if (localStorage.getItem("settings", JSON.stringify(settings))) {
+    let store = localStorage.getItem("settings", JSON.stringify(settings));
+    store = JSON.parse(store);
+    setDefault(store);
+  }
 }
 
 function setDefault(loaded) {
