@@ -77,6 +77,7 @@ function testResult(i, item) {
 }
 
 function secToDay(seconds) {
+  seconds = Math.floor(seconds);
   var day = parseInt(seconds / (3600 * 24));
   var hour = parseInt((seconds % (3600 * 24)) / 3600);
   var min = parseInt((seconds % 3600) / 60);
@@ -101,6 +102,7 @@ function fianlResult() {
       fail: 0,
       destroy: [],
       cost: [],
+      time: [],
     },
     fail: {
       num: 0,
@@ -123,6 +125,10 @@ function fianlResult() {
       results.success.fail += resultArr[i].failCount;
       results.success.destroy.push(resultArr[i].destroyCount);
       results.success.cost.push(resultArr[i].cost);
+
+      if (settings.log.time) {
+        results.success.time.push(resultArr[i].runningTime);
+      }
     } else {
       results.fail.num++;
       results.fail.success += resultArr[i].successCount;
@@ -199,6 +205,21 @@ function fianlResult() {
           calArr(results.success.destroy, "mid")
         )}회`
       );
+
+      if (settings.log.time) {
+        ulUpdate(
+          ` 강화시간 평균 : ${secToDay(calArr(results.success.time, "avg"))}`
+        );
+        ulUpdate(
+          ` 강화시간 최솟값 : ${secToDay(calArr(results.success.time, "min"))}`
+        );
+        ulUpdate(
+          ` 강화시간 최댓값 : ${secToDay(calArr(results.success.time, "max"))}`
+        );
+        ulUpdate(
+          ` 강화시간 중간값 : ${secToDay(calArr(results.success.time, "mid"))}`
+        );
+      }
     }
 
     // 실패 케이스
