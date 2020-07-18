@@ -137,7 +137,7 @@ function fianlResult() {
     // 목표 달성
     ulUpdate(
       `목표 달성 : ${results.success.num}/${resultArr.length} [${
-        (results.success.num / resultArr.length) * 100
+        splitNum(results.success.num / resultArr.length) * 100
       }%]`
     );
   }
