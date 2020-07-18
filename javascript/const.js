@@ -71,23 +71,7 @@ class Starforce {
 
   // 스타포스 비용 계산
   starCost() {
-    var aDiscount =
-      this.star < 17
-        ? 1 -
-          (settings.a_sale.pcroom
-            ? settings.a_sale.mvp + 5
-            : settings.a_sale.mvp) *
-            0.01
-        : 1;
-    var event = settings.event.sunday === "sale30" ? 0.7 : 1;
-    var pDestroy = settings.prevDes.includes(this.star)
-      ? settings.event.free
-        ? 0
-        : 1
-      : 0;
-    var discountRate = aDiscount * event;
-    if (!(this.star === 15 && settings.event.sunday === "s15"))
-      discountRate += pDestroy;
+    let discountRate = this.getInfo("saleRate");
     var cost;
 
     if (this.star < 10) {
@@ -126,6 +110,42 @@ class Starforce {
         return percent + 0.01 * settings.starcatch.rate;
       }
     } else return percent;
+  }
+
+  getInfo(att) {
+    if (att === "successRate") return this.starPercentage();
+    else if (att == "destroyRate") {
+      // 파괴방지 여부
+      if (
+        settings.prevDes.includes(this.star) ||
+        (this.star < 15 && settings.event.free)
+      ) {
+        return 0;
+      } else {
+        return prob[this.star][1];
+      }
+    } else if (att === "saleRate") {
+      var aDiscount =
+        this.star < 17
+          ? 1 -
+            (settings.a_sale.pcroom
+              ? settings.a_sale.mvp + 5
+              : settings.a_sale.mvp) *
+              0.01
+          : 1;
+      var event = settings.event.sunday === "sale30" ? 0.7 : 1;
+      var pDestroy;
+      if (this.star < 15 && settings.event.free) {
+        pDestroy = 0;
+      } else {
+        pDestroy = settings.prevDes.includes(this.star) ? 1 : 0;
+      }
+      var discountRate = aDiscount * event;
+      if (!(this.star === 15 && settings.event.sunday === "s15"))
+        discountRate += pDestroy;
+
+      return discountRate;
+    }
   }
 
   // 해당 확률이 성공할지 테스트
@@ -169,7 +189,7 @@ class Starforce {
       this.failCount++;
 
       // 파괴 체크
-      if (this.starTest(prob[this.star][1])) {
+      if (this.starTest(this.getInfo("destroyRate"))) {
         // 파괴!
         this.destroyCount++;
         this.statusDestroy = true;
@@ -261,4 +281,24 @@ function ulUpdate(text) {
   let txt = document.createElement("li");
   txt.textContent = text;
   result_ul.appendChild(txt);
+}
+
+function calArr(arr, cal) {
+  if (arr.length > 0) {
+    if (cal === "avg") {
+      return arr.reduce((sum, current) => sum + current, 0) / arr.length;
+    } else {
+      let sortArr = arr.sort(function (a, b) {
+        return a - b;
+      });
+      if (cal === "min") {
+        return sortArr[0];
+      } else if (cal === "max") {
+        return sortArr[sortArr.length - 1];
+      } else if (cal === "mid") {
+        let center = Math.ceil(sortArr.length / 2);
+        return sortArr[center - 1];
+      }
+    }
+  } else return NaN;
 }

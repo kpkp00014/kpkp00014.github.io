@@ -70,7 +70,7 @@ function showSummary() {
       event += "없음";
       break;
   }
-  if (settings.event.prevDes) {
+  if (settings.event.free) {
     event += ", 무료 파괴방지";
   }
   summaryUpdate(event);

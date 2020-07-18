@@ -99,8 +99,8 @@ function fianlResult() {
       num: 0,
       success: 0,
       fail: 0,
-      destroy: 0,
-      cost: 0,
+      destroy: [],
+      cost: [],
     },
     fail: {
       num: 0,
@@ -108,6 +108,8 @@ function fianlResult() {
       fail: 0,
       destroy: 0,
       cost: 0,
+      destroy: [],
+      cost: [],
     },
     failCause: {
       money: 0,
@@ -119,14 +121,14 @@ function fianlResult() {
       results.success.num++;
       results.success.success += resultArr[i].successCount;
       results.success.fail += resultArr[i].failCount;
-      results.success.destroy += resultArr[i].destroyCount;
-      results.success.cost += resultArr[i].cost;
+      results.success.destroy.push(resultArr[i].destroyCount);
+      results.success.cost.push(resultArr[i].cost);
     } else {
       results.fail.num++;
       results.fail.success += resultArr[i].successCount;
       results.fail.fail += resultArr[i].failCount;
-      results.fail.destroy += resultArr[i].destroyCount;
-      results.fail.cost += resultArr[i].cost;
+      results.fail.destroy.push(resultArr[i].destroyCount);
+      results.fail.cost.push(resultArr[i].cost);
 
       if (resultArr[i].failCause === "스페어 부족") results.failCause.spare++;
       else if (resultArr[i].failCause === "예산 초과")
@@ -156,15 +158,46 @@ function fianlResult() {
           results.success.fail / results.success.num
         )}회`
       );
+
       ulUpdate(
         ` 평균 파괴 횟수 : ${splitNum(
-          results.success.destroy / results.success.num
+          calArr(results.success.destroy, "avg")
         )}회`
       );
       ulUpdate(
         ` 평균 누적 비용 : ${splitNum(
-          results.success.cost / results.success.num
+          calArr(results.success.cost, "avg")
         )} 메소`
+      );
+      ulUpdate(
+        ` 강화 비용 최솟값 : ${splitNum(
+          calArr(results.success.cost, "min")
+        )} 메소`
+      );
+      ulUpdate(
+        ` 강화 비용 최댓값 : ${splitNum(
+          calArr(results.success.cost, "max")
+        )} 메소`
+      );
+      ulUpdate(
+        ` 강화 비용 중간값 : ${splitNum(
+          calArr(results.success.cost, "mid")
+        )} 메소`
+      );
+      ulUpdate(
+        ` 파괴 횟수 최솟값 : ${splitNum(
+          calArr(results.success.destroy, "min")
+        )}회`
+      );
+      ulUpdate(
+        ` 파괴 횟수 최댓값 : ${splitNum(
+          calArr(results.success.destroy, "max")
+        )}회`
+      );
+      ulUpdate(
+        ` 파괴 횟수 중간값 : ${splitNum(
+          calArr(results.success.destroy, "mid")
+        )}회`
       );
     }
 
@@ -181,27 +214,43 @@ function fianlResult() {
         ` 평균 실패 횟수 : ${splitNum(results.fail.fail / results.fail.num)}회`
       );
       ulUpdate(
-        ` 평균 파괴 횟수 : ${splitNum(
-          results.fail.destroy / results.fail.num
-        )}회`
+        ` 평균 파괴 횟수 : ${splitNum(calArr(results.fail.destroy, "avg"))}회`
       );
       ulUpdate(
-        ` 평균 누적 비용 : ${splitNum(
-          results.fail.cost / results.fail.num
-        )}메소`
+        ` 평균 누적 비용 : ${splitNum(calArr(results.fail.cost, "avg"))}메소`
+      );
+
+      ulUpdate(
+        ` 강화 비용 최솟값 : ${splitNum(calArr(results.fail.cost, "min"))} 메소`
+      );
+      ulUpdate(
+        ` 강화 비용 최댓값 : ${splitNum(calArr(results.fail.cost, "max"))} 메소`
+      );
+      ulUpdate(
+        ` 강화 비용 중간값 : ${splitNum(calArr(results.fail.cost, "mid"))} 메소`
+      );
+      ulUpdate(
+        ` 파괴 횟수 최솟값 : ${splitNum(calArr(results.fail.destroy, "min"))}회`
+      );
+      ulUpdate(
+        ` 파괴 횟수 최댓값 : ${splitNum(calArr(results.fail.destroy, "max"))}회`
+      );
+      ulUpdate(
+        ` 파괴 횟수 중간값 : ${splitNum(calArr(results.fail.destroy, "mid"))}회`
+      );
+
+      ulUpdate(` ------ 실패 분석 ------`);
+
+      ulUpdate(
+        `강화비용 부족 : ${results.failCause.money}건 [${splitNum(
+          (results.failCause.money / results.fail.num) * 100
+        )}]%`
+      );
+      ulUpdate(
+        `스페어 부족 : ${results.failCause.spare}건 [${splitNum(
+          (results.failCause.spare / results.fail.num) * 100
+        )}]%`
       );
     }
-    ulUpdate(` ------ 실패 분석 ------`);
-
-    ulUpdate(
-      `강화비용 부족 : ${results.failCause.money}건 [${splitNum(
-        (results.failCause.money / results.fail.num) * 100
-      )}]%`
-    );
-    ulUpdate(
-      `스페어 부족 : ${results.failCause.spare}건 [${splitNum(
-        (results.failCause.spare / results.fail.num) * 100
-      )}]%`
-    );
   }
 }
