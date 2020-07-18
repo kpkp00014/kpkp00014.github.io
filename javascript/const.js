@@ -86,7 +86,7 @@ class Starforce {
 
     if (this.statsDestroy) {
       // 복구 비용 추가
-      cost += settings.test.recover_cost;
+      cost += settings.test.recover_cost * 100000000;
     }
     return Math.floor(cost * 0.1 * discountRate) * 10;
   }
