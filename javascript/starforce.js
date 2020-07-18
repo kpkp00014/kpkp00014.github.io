@@ -145,53 +145,63 @@ function fianlResult() {
     // 성공 케이스
     ulUpdate(` ------ 성공 통계 ------`);
     ulUpdate(` 전체 수 : ${splitNum(results.success.num)} `);
-    ulUpdate(
-      ` 평균 성공 횟수 : ${splitNum(
-        results.success.success / results.success.num
-      )}회 `
-    );
-    ulUpdate(
-      ` 평균 실패 횟수 : ${splitNum(
-        results.success.fail / results.success.num
-      )}회`
-    );
-    ulUpdate(
-      ` 평균 파괴 횟수 : ${splitNum(
-        results.success.destroy / results.success.num
-      )}회`
-    );
-    ulUpdate(
-      ` 평균 누적 비용 : ${splitNum(
-        results.success.cost / results.success.num
-      )} 메소`
-    );
+    if (results.success.num) {
+      ulUpdate(
+        ` 평균 성공 횟수 : ${splitNum(
+          results.success.success / results.success.num
+        )}회 `
+      );
+      ulUpdate(
+        ` 평균 실패 횟수 : ${splitNum(
+          results.success.fail / results.success.num
+        )}회`
+      );
+      ulUpdate(
+        ` 평균 파괴 횟수 : ${splitNum(
+          results.success.destroy / results.success.num
+        )}회`
+      );
+      ulUpdate(
+        ` 평균 누적 비용 : ${splitNum(
+          results.success.cost / results.success.num
+        )} 메소`
+      );
+    }
 
     // 실패 케이스
     ulUpdate(` ------ 실패 통계 ------`);
     ulUpdate(` 전체 수 : ${splitNum(results.fail.num)} `);
+    if (results.fail.num) {
+      ulUpdate(
+        ` 평균 성공 횟수 : ${splitNum(
+          results.fail.success / results.fail.num
+        )}회`
+      );
+      ulUpdate(
+        ` 평균 실패 횟수 : ${splitNum(results.fail.fail / results.fail.num)}회`
+      );
+      ulUpdate(
+        ` 평균 파괴 횟수 : ${splitNum(
+          results.fail.destroy / results.fail.num
+        )}회`
+      );
+      ulUpdate(
+        ` 평균 누적 비용 : ${splitNum(
+          results.fail.cost / results.fail.num
+        )}메소`
+      );
+    }
+    ulUpdate(` ------ 실패 분석 ------`);
+
     ulUpdate(
-      ` 평균 성공 횟수 : ${splitNum(results.fail.success / results.fail.num)}회`
+      `강화비용 부족 : ${results.failCause.money}건 [${splitNum(
+        (results.failCause.money / results.fail.num) * 100
+      )}]%`
     );
     ulUpdate(
-      ` 평균 실패 횟수 : ${splitNum(results.fail.fail / results.fail.num)}회`
-    );
-    ulUpdate(
-      ` 평균 파괴 횟수 : ${splitNum(results.fail.destroy / results.fail.num)}회`
-    );
-    ulUpdate(
-      ` 평균 누적 비용 : ${splitNum(results.fail.cost / results.fail.num)}메소`
+      `스페어 부족 : ${results.failCause.spare}건 [${splitNum(
+        (results.failCause.spare / results.fail.num) * 100
+      )}]%`
     );
   }
-  ulUpdate(` ------ 실패 분석 ------`);
-
-  ulUpdate(
-    `강화비용 부족 : ${results.failCause.money}건 [${splitNum(
-      (results.failCause.money / results.fail.num) * 100
-    )}]%`
-  );
-  ulUpdate(
-    `스페어 부족 : ${results.failCause.spare}건 [${splitNum(
-      (results.failCause.spare / results.fail.num) * 100
-    )}]%`
-  );
 }
