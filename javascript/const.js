@@ -84,7 +84,7 @@ class Starforce {
         1000 + (Math.pow(this.level, 3) * Math.pow(this.star + 1, 2.7)) / 200;
     }
 
-    if (this.statsDestroy) {
+    if (this.statusDestroy) {
       // 복구 비용 추가
       cost += settings.test.recover_cost * 100000000;
     }
@@ -229,8 +229,6 @@ class Starforce {
           );
         }
       }
-    }
-    if (this.cost > settings.test.budget * 100000000) {
     }
   }
 }
