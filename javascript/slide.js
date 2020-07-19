@@ -1,7 +1,6 @@
-const slide_num = document.querySelectorAll(".slide_num");
-let current_slide = document.querySelector(".slide_num.selected");
-
 window.onload = function () {
+  const slide_num = document.querySelectorAll(".slide_num");
+  let current_slide = document.querySelector(".slide_num.selected");
   slide_num.forEach(function (item, index) {
     item.addEventListener("click", function (e) {
       let elem = e.target;
